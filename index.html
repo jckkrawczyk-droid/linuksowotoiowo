@@ -7,7 +7,46 @@
 <title>Linuksowo to i owo</title>
 
 <style>
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
+    padding:20px 40px;
+
+    border-bottom:1px solid #1e293b;
+
+    background:#07101f;
+
+    position:sticky;
+    top:0;
+
+    backdrop-filter:blur(10px);
+
+    z-index:1000;
+}
+
+.nav-logo{
+    color:#7CFF8F;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:#cbd5e1;
+    text-decoration:none;
+
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:#7CFF8F;
+}
 body{
     margin:0;
     background:#050816;
@@ -72,7 +111,31 @@ body{
 </head>
 
 <body>
+<nav class="navbar">
 
+<div class="nav-logo">
+Linuksowo to i owo
+</div>
+
+<div class="nav-links">
+
+<a href="#">Start</a>
+
+<a href="#">Artykuły</a>
+
+<a href="#">Laboratorium</a>
+
+<a href="https://github.com/jckkrawczyk-droid/linuksowotoiowo">
+GitHub
+</a>
+
+<a href="https://www.facebook.com/groups/1503868154056317">
+Facebook
+</a>
+
+</div>
+
+</nav>
 <div class="container">
 
 <div class="hero">
