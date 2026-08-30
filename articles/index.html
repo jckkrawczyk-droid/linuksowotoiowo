@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Artykuły | Linuksowo to i owo</title>
+
+<style>
+
+:root{
+    --bg:#050816;
+    --panel:#0b1220;
+    --panel-hover:#0f1a2d;
+    --border:#1e293b;
+    --text:#e5e7eb;
+    --text-soft:#cbd5e1;
+    --text-muted:#64748b;
+    --green:#7cff8f;
+    --green-soft:#a5ffb2;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:#050816;
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    line-height:1.6;
+}
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 32px;
+
+    border-bottom:1px solid var(--border);
+
+    background:rgba(7,16,31,0.94);
+    backdrop-filter:blur(12px);
+}
+
+.nav-logo{
+    color:var(--green);
+    font-size:24px;
+    font-weight:700;
+}
+
+.nav-links{
+    display:flex;
+    gap:26px;
+}
+
+.nav-links a{
+    color:var(--text-soft);
+    text-decoration:none;
+    transition:0.25s;
+}
+
+.nav-links a:hover,
+.nav-links .active{
+    color:var(--green);
+}
+
+.container{
+    max-width:1050px;
+    margin:auto;
+    padding:55px 22px;
+}
+
+.page-header{
+    margin-bottom:48px;
+}
+
+.page-header h1{
+    margin:0 0 12px;
+    color:var(--green);
+    font-size:46px;
+}
+
+.page-header p{
+    margin:0;
+    color:var(--text-soft);
+    font-size:19px;
+}
+
+.article-grid{
+    display:grid;
+    gap:18px;
+}
+
+.article-card{
+    background:var(--panel);
+
+    border:1px solid var(--border);
+    border-radius:16px;
+
+    padding:26px;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.article-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(124,255,143,0.55);
+    background:var(--panel-hover);
+}
+
+.article-meta{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+
+    margin-bottom:14px;
+}
+
+.tag{
+    padding:5px 10px;
+
+    border:1px solid var(--border);
+    border-radius:999px;
+
+    color:#9fb0c6;
+
+    font-size:13px;
+}
+
+.article-card h2{
+    margin:0 0 10px;
+    font-size:22px;
+}
+
+.article-card p{
+    margin:0 0 18px;
+    color:var(--text-soft);
+}
+
+.article-card a{
+    color:var(--green);
+    text-decoration:none;
+    font-weight:600;
+}
+
+.article-card a:hover{
+    color:var(--green-soft);
+}
+
+.footer{
+    margin-top:80px;
+    padding-top:25px;
+
+    border-top:1px solid var(--border);
+
+    color:var(--text-muted);
+    font-size:14px;
+}
+
+@media(max-width:760px){
+
+    .navbar{
+        flex-direction:column;
+        gap:12px;
+        padding:14px 20px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px 18px;
+    }
+
+    .container{
+        padding:35px 16px;
+    }
+
+    .page-header h1{
+        font-size:38px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="nav-logo">
+Linuksowo to i owo
+</div>
+
+<div class="nav-links">
+
+<a href="../index.html">
+Start
+</a>
+
+<a class="active" href="index.html">
+Artykuły
+</a>
+
+<a href="../index.html#laboratorium">
+Laboratorium
+</a>
+
+<a
+href="https://github.com/jckkrawczyk-droid/linuksowotoiowo"
+target="_blank"
+rel="noopener noreferrer"
+>
+GitHub
+</a>
+
+<a
+href="https://www.facebook.com/groups/1503868154056317"
+target="_blank"
+rel="noopener noreferrer"
+>
+Facebook
+</a>
+
+</div>
+
+</nav>
+
+
+<div class="container">
+
+<div class="page-header">
+
+<h1>
+Artykuły
+</h1>
+
+<p>
+Notatki z nauki, projektów, Linuksa, AI, homelabu i infrastruktury.
+</p>
+
+</div>
+
+
+<div class="article-grid">
+
+
+<article class="article-card">
+
+<div class="article-meta">
+
+<span class="tag">
+Linux
+</span>
+
+<span class="tag">
+Homelab
+</span>
+
+<span class="tag">
+Projekt
+</span>
+
+</div>
+
+<h2>
+Dlaczego powstało Linuksowo to i owo
+</h2>
+
+<p>
+Pierwszy wpis opisujący ideę strony,
+naukę technologii i rozwój własnego środowiska IT.
+</p>
+
+<a href="pierwszy-artykul.html">
+Czytaj artykuł →
+</a>
+
+</article>
+
+
+</div>
+
+
+<div class="footer">
+
+Linuksowo to i owo • 2026
+
+</div>
+
+</div>
+
+</body>
+</html>
