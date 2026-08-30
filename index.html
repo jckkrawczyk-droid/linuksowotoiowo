@@ -7,6 +7,18 @@
 <title>Linuksowo to i owo</title>
 
 <style>
+
+body{
+    margin:0;
+    background:#050816;
+    color:#E5E7EB;
+    font-family:Arial,sans-serif;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+
 .navbar{
     display:flex;
     justify-content:space-between;
@@ -30,7 +42,9 @@
     color:#7CFF8F;
     font-size:24px;
     font-weight:bold;
-    text-shadow:0 0 12px rgba(124,255,143,0.35);
+
+    text-shadow:
+        0 0 6px rgba(124,255,143,0.20);
 }
 
 .nav-links{
@@ -42,46 +56,75 @@
     color:#cbd5e1;
     text-decoration:none;
 
-    transition:0.3s;
+    transition:
+        color 0.25s ease;
 }
 
 .nav-links a:hover{
     color:#7CFF8F;
 }
-body{
-    margin:0;
-    background:#050816;
-    color:#E5E7EB;
-    font-family:Arial,sans-serif;
-}
+
+
+/* ============================================================
+   GŁÓWNY KONTENER
+   ============================================================ */
 
 .container{
     max-width:1100px;
     margin:auto;
-    padding:40px 20px;
+
+    padding:
+        30px 20px
+        40px;
 }
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
 
 .hero{
     text-align:center;
-    padding:60px 20px;
+
+    padding:
+        35px 20px
+        25px;
 }
 
 .hero h1{
     color:#7CFF8F;
+
     font-size:64px;
+
+    margin:
+        25px 0
+        30px;
 }
 
 .hero p{
     font-size:22px;
     color:#cbd5e1;
+
+    margin:
+        0 0
+        25px;
 }
 
 .tags{
-    margin-top:30px;
+    margin-top:20px;
+
     font-size:20px;
+
+    color:#e2e8f0;
 }
+
+
+/* ============================================================
+   PRZYCISKI KATEGORII
+   ============================================================ */
+
 .category-buttons{
-    margin-top:40px;
+    margin-top:32px;
 
     display:flex;
 
@@ -93,7 +136,6 @@ body{
 }
 
 .category-buttons button{
-
     background:#0b1220;
 
     border:1px solid #1e293b;
@@ -106,55 +148,185 @@ body{
 
     cursor:pointer;
 
-    transition:0.3s;
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
 
     font-size:16px;
 }
 
 .category-buttons button:hover{
+    background:#101a2d;
 
-    background:#7CFF8F;
+    border-color:#7CFF8F;
 
-    color:#050816;
+    color:#7CFF8F;
 
-    transform:translateY(-2px);
+    transform:
+        translateY(-2px);
 }
+
+
+/* ============================================================
+   SEKCJE
+   ============================================================ */
+
 .section{
-    margin-top:80px;
+    margin-top:65px;
 }
 
 .section h2{
     color:#7CFF8F;
+
+    margin-bottom:18px;
 }
+
+
+/* ============================================================
+   KARTY
+   ============================================================ */
 
 .card{
     background:#0b1220;
-    border:1px solid #1e293b;
-    border-radius:16px;
-    padding:25px;
-    margin-top:20px;
-    transition:0.3s;
-}
-.card:hover{
-    transform:translateY(-4px);
 
-    border-color:#7CFF8F;
+    border:
+        1px solid
+        #1e293b;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    margin-top:20px;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
 }
+
+.card:hover{
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(
+            124,
+            255,
+            143,
+            0.65
+        );
+
+    background:#0d1627;
+}
+
+.card h3{
+    margin-top:0;
+}
+
 .card a{
     color:#7CFF8F;
+
     text-decoration:none;
+
+    transition:
+        opacity 0.25s ease;
 }
 
+.card a:hover{
+    opacity:0.80;
+}
+
+
+/* ============================================================
+   STOPKA
+   ============================================================ */
+
 .footer{
-    margin-top:100px;
+    margin-top:90px;
+
     text-align:center;
+
     color:#64748b;
+}
+
+
+/* ============================================================
+   RESPONSYWNOŚĆ
+   ============================================================ */
+
+@media (max-width:800px){
+
+    .navbar{
+        padding:
+            14px 20px;
+
+        flex-direction:column;
+
+        gap:14px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:16px;
+    }
+
+    .hero h1{
+        font-size:46px;
+    }
+
+    .hero p{
+        font-size:20px;
+    }
+
+    .tags{
+        font-size:17px;
+    }
+
+}
+
+
+@media (max-width:520px){
+
+    .container{
+        padding:
+            20px 14px
+            30px;
+    }
+
+    .hero{
+        padding:
+            25px 10px
+            15px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .category-buttons{
+        gap:10px;
+    }
+
+    .category-buttons button{
+        padding:
+            10px 16px;
+
+        font-size:15px;
+    }
+
 }
 
 </style>
 </head>
 
 <body>
+
 <nav class="navbar">
 
 <div class="nav-logo">
@@ -180,17 +352,24 @@ Facebook
 </div>
 
 </nav>
+
+
 <div class="container">
+
 
 <div class="hero">
 
 <h1>Linuksowo to i owo</h1>
 
-<p>Spokojny rozwój technologiczny.</p>
+<p>
+Spokojny rozwój technologiczny.
+</p>
 
 <div class="tags">
 Linux • AI • infrastruktura • homelab • cybersecurity
 </div>
+
+
 <div class="category-buttons">
 
 <button>Linux</button>
@@ -206,19 +385,26 @@ Linux • AI • infrastruktura • homelab • cybersecurity
 <button>Matematyka</button>
 
 </div>
+
 </div>
+
 
 <div class="section">
 
-<h2>📰 Najnowszy artykuł</h2>
+<h2>
+📰 Najnowszy artykuł
+</h2>
 
 <div class="card">
 
-<h3>Dlaczego powstało Linuksowo to i owo</h3>
+<h3>
+Dlaczego powstało Linuksowo to i owo
+</h3>
 
 <p>
 Pierwszy wpis opisujący ideę projektu,
-spokojnej edukacji technologicznej i budowy homelabu.
+spokojnej edukacji technologicznej
+i budowy homelabu.
 </p>
 
 <a href="articles/pierwszy-artykul.html">
@@ -229,9 +415,12 @@ Czytaj artykuł →
 
 </div>
 
+
 <div class="section">
 
-<h2>🧪 Laboratorium</h2>
+<h2>
+🧪 Laboratorium
+</h2>
 
 <div class="card">
 🟢 GitHub Pages online
@@ -247,6 +436,7 @@ Czytaj artykuł →
 
 </div>
 
+
 <div class="footer">
 
 <p>
@@ -254,6 +444,7 @@ Linuksowo to i owo • 2026
 </p>
 
 </div>
+
 
 </div>
 
