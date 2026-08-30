@@ -1,1210 +1,1015 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Linuksowo to i owo</title>
+    <meta name="description"
+          content="Linuksowo to i owo — Linux, AI, infrastruktura, homelab, cybersecurity, sieci i projekty technologiczne.">
 
-<style>
+    <title>Linuksowo to i owo</title>
 
-:root{
-    --bg:#050816;
-    --bg-soft:#08101f;
-    --panel:#0b1220;
-    --panel-hover:#0f1a2d;
-    --border:#1e293b;
-    --border-soft:#263449;
+    <style>
 
-    --text:#e5e7eb;
-    --text-soft:#cbd5e1;
-    --text-muted:#64748b;
+        :root {
+            --bg: #050816;
+            --nav: #07101f;
+            --panel: #0b1220;
+            --panel-hover: #0f1929;
+            --border: #1e293b;
 
-    --green:#7cff8f;
-    --green-soft:#a5ffb2;
-}
+            --text: #e5e7eb;
+            --text-soft: #cbd5e1;
+            --text-muted: #7183a3;
 
-/* ============================================================
-   RESET / BASE
-   ============================================================ */
+            --green: #7cff8f;
+            --green-soft: #a4ffb1;
+        }
 
-*{
-    box-sizing:border-box;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-html{
-    scroll-behavior:smooth;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-body{
-    margin:0;
+        body {
+            margin: 0;
 
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(124,255,143,0.04),
-            transparent 28%
-        ),
-        var(--bg);
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(124,255,143,0.05),
+                    transparent 35%
+                ),
+                var(--bg);
 
-    color:var(--text);
+            color: var(--text);
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
-    line-height:1.6;
-}
+            line-height: 1.6;
+        }
 
-a{
-    color:inherit;
-}
 
-button,
-a{
-    -webkit-tap-highlight-color:transparent;
-}
+        /* =========================
+           NAVIGATION
+        ========================= */
 
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
 
-/* ============================================================
-   NAVBAR
-   ============================================================ */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-.navbar{
-    position:sticky;
-    top:0;
+            padding: 14px 36px;
 
-    z-index:1000;
+            background: rgba(7,16,31,0.95);
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+            backdrop-filter: blur(12px);
 
-    padding:14px 32px;
+            border-bottom: 1px solid var(--border);
+        }
 
-    border-bottom:
-        1px solid
-        rgba(30,41,59,0.9);
+        .nav-logo {
+            color: var(--green);
 
-    background:
-        rgba(7,16,31,0.92);
+            font-size: 24px;
+            font-weight: 700;
 
-    backdrop-filter:
-        blur(12px);
-}
+            text-shadow:
+                0 0 14px rgba(124,255,143,0.20);
+        }
 
-.nav-logo{
-    color:var(--green);
+        .nav-links {
+            display: flex;
+            align-items: center;
 
-    font-size:24px;
-    font-weight:700;
+            gap: 27px;
+        }
 
-    letter-spacing:-0.4px;
+        .nav-links a {
+            color: var(--text-soft);
 
-    text-shadow:
-        0 0 6px
-        rgba(124,255,143,0.18);
-}
+            text-decoration: none;
 
-.nav-links{
-    display:flex;
-    align-items:center;
+            transition:
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
 
-    gap:26px;
-}
+        .nav-links a:hover {
+            color: var(--green);
+        }
 
-.nav-links a{
-    position:relative;
+        .nav-links .active {
+            color: var(--green);
+        }
 
-    color:var(--text-soft);
 
-    text-decoration:none;
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
 
-    font-size:16px;
+        .container {
+            max-width: 1100px;
 
-    padding:
-        8px 0;
+            margin: auto;
 
-    transition:
-        color 0.25s ease;
-}
+            padding: 0 22px 50px;
+        }
 
-.nav-links a::after{
-    content:"";
 
-    position:absolute;
+        /* =========================
+           HERO
+        ========================= */
 
-    left:0;
-    bottom:2px;
+        .hero {
+            min-height: 500px;
 
-    width:0;
-    height:2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-    background:var(--green);
+            text-align: center;
 
-    border-radius:2px;
+            padding: 70px 20px;
+        }
 
-    transition:
-        width 0.25s ease;
-}
+        .hero-badge {
+            margin-bottom: 15px;
 
-.nav-links a:hover{
-    color:var(--green);
-}
+            padding: 8px 15px;
 
-.nav-links a:hover::after{
-    width:100%;
-}
+            border-radius: 999px;
 
-.nav-links .active{
-    color:var(--green);
-}
+            border:
+                1px solid
+                rgba(124,255,143,0.25);
 
+            background:
+                rgba(124,255,143,0.05);
 
-/* ============================================================
-   MAIN CONTAINER
-   ============================================================ */
+            color: var(--green);
 
-.container{
-    max-width:1120px;
+            font-size: 14px;
+        }
 
-    margin:auto;
+        .hero h1 {
+            margin:
+                0
+                0
+                10px;
 
-    padding:
-        30px 22px
-        50px;
-}
+            color: var(--green);
 
+            font-size: clamp(
+                46px,
+                7vw,
+                68px
+            );
 
-/* ============================================================
-   HERO
-   ============================================================ */
+            line-height: 1.1;
 
-.hero{
-    position:relative;
+            letter-spacing: -2px;
 
-    text-align:center;
+            text-shadow:
+                0 0 30px
+                rgba(124,255,143,0.08);
+        }
 
-    padding:
-        55px 20px
-        45px;
+        .hero-subtitle {
+            margin-top: 15px;
 
-    overflow:hidden;
-}
+            color: var(--text-soft);
 
-.hero::before{
-    content:"";
+            font-size: 23px;
+        }
 
-    position:absolute;
+        .tags {
+            margin-top: 12px;
 
-    width:380px;
-    height:380px;
+            color: var(--text);
 
-    left:50%;
-    top:-210px;
+            font-size: 19px;
+        }
 
-    transform:
-        translateX(-50%);
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(124,255,143,0.10),
-            transparent 68%
-        );
+        /* =========================
+           CATEGORY BUTTONS
+        ========================= */
 
-    pointer-events:none;
-}
+        .category-buttons {
+            margin-top: 30px;
 
-.hero-badge{
-    display:inline-flex;
+            display: flex;
 
-    align-items:center;
-    gap:8px;
+            justify-content: center;
 
-    padding:
-        7px 14px;
+            flex-wrap: wrap;
 
-    border:
-        1px solid
-        rgba(124,255,143,0.22);
+            gap: 12px;
+        }
 
-    border-radius:999px;
+        .category-buttons a {
+            padding:
+                10px
+                20px;
 
-    background:
-        rgba(124,255,143,0.04);
+            border:
+                1px solid
+                var(--border);
 
-    color:var(--green-soft);
+            border-radius: 12px;
 
-    font-size:14px;
+            background:
+                var(--panel);
 
-    margin-bottom:18px;
-}
+            color:
+                var(--green);
 
-.hero h1{
-    position:relative;
+            text-decoration:
+                none;
 
-    margin:
-        0 0
-        18px;
+            transition:
+                0.25s ease;
+        }
 
-    color:var(--green);
+        .category-buttons a:hover {
+            background:
+                var(--green);
 
-    font-size:
-        clamp(42px,7vw,68px);
+            color:
+                var(--bg);
 
-    line-height:1.05;
+            border-color:
+                var(--green);
 
-    letter-spacing:-1.5px;
-}
+            transform:
+                translateY(-2px);
+        }
 
-.hero p{
-    margin:
-        0 0
-        18px;
 
-    font-size:
-        clamp(20px,2.5vw,24px);
+        /* =========================
+           SECTIONS
+        ========================= */
 
-    color:var(--text-soft);
-}
+        .section {
+            margin-top: 75px;
 
-.tags{
-    margin-top:14px;
+            scroll-margin-top: 100px;
+        }
 
-    color:#d7deea;
+        .section-header {
+            display: flex;
 
-    font-size:
-        clamp(16px,2vw,20px);
-}
+            justify-content:
+                space-between;
 
+            align-items:
+                flex-end;
 
-/* ============================================================
-   CATEGORY BUTTONS
-   ============================================================ */
+            gap: 20px;
 
-.category-buttons{
-    margin-top:32px;
+            margin-bottom: 22px;
+        }
 
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
+        .section-header h2 {
+            margin: 0;
 
-    gap:12px;
-}
+            color:
+                var(--green);
 
-.category-buttons button{
-    background:
-        linear-gradient(
-            180deg,
-            #0d1728,
-            #0a1220
-        );
+            font-size:
+                28px;
+        }
 
-    border:
-        1px solid
-        var(--border);
+        .section-description {
+            color:
+                var(--text-muted);
 
-    color:var(--green);
+            font-size:
+                14px;
+        }
 
-    padding:
-        11px 20px;
 
-    border-radius:12px;
+        /* =========================
+           CARDS
+        ========================= */
 
-    cursor:pointer;
+        .card {
+            padding:
+                28px;
 
-    font-size:15px;
+            background:
+                var(--panel);
 
-    transition:
-        transform 0.22s ease,
-        border-color 0.22s ease,
-        background 0.22s ease,
-        box-shadow 0.22s ease;
-}
+            border:
+                1px solid
+                var(--border);
 
-.category-buttons button:hover{
-    transform:
-        translateY(-2px);
+            border-radius:
+                16px;
 
-    border-color:
-        rgba(124,255,143,0.70);
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
 
-    background:#101b2d;
+        .card:hover {
+            transform:
+                translateY(-3px);
 
-    box-shadow:
-        0 8px 24px
-        rgba(0,0,0,0.18);
-}
+            border-color:
+                rgba(124,255,143,0.45);
 
+            background:
+                var(--panel-hover);
+        }
 
-/* ============================================================
-   SECTION
-   ============================================================ */
+        .card h3 {
+            margin:
+                0
+                0
+                10px;
 
-.section{
-    margin-top:74px;
-}
+            font-size:
+                21px;
+        }
 
-.section-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
+        .card p {
+            margin:
+                0
+                0
+                16px;
 
-    gap:20px;
+            color:
+                var(--text-soft);
+        }
 
-    margin-bottom:18px;
-}
+        .card-link {
+            color:
+                var(--green);
 
-.section h2{
-    margin:0;
+            text-decoration:
+                none;
 
-    color:var(--green);
+            font-weight:
+                600;
+        }
 
-    font-size:26px;
-}
+        .card-link:hover {
+            color:
+                var(--green-soft);
+        }
 
-.section-subtitle{
-    color:var(--text-muted);
 
-    font-size:14px;
-}
+        /* =========================
+           ARTICLE TAGS
+        ========================= */
 
+        .article-tags {
+            display:
+                flex;
 
-/* ============================================================
-   FEATURED ARTICLE
-   ============================================================ */
+            flex-wrap:
+                wrap;
 
-.featured-card{
-    position:relative;
+            gap:
+                8px;
 
-    overflow:hidden;
+            margin-bottom:
+                16px;
+        }
 
-    background:
-        linear-gradient(
-            145deg,
-            #0c1526,
-            #09111f
-        );
+        .article-tag {
+            padding:
+                4px
+                10px;
 
-    border:
-        1px solid
-        var(--border);
+            border:
+                1px solid
+                var(--border);
 
-    border-radius:18px;
+            border-radius:
+                999px;
 
-    padding:
-        30px;
+            color:
+                #9fb0c6;
 
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        background 0.25s ease;
-}
+            font-size:
+                13px;
+        }
 
-.featured-card::after{
-    content:"";
 
-    position:absolute;
+        /* =========================
+           LAB
+        ========================= */
 
-    width:220px;
-    height:220px;
+        .lab-grid {
+            display:
+                grid;
 
-    right:-100px;
-    top:-100px;
+            grid-template-columns:
+                repeat(3, 1fr);
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(124,255,143,0.08),
-            transparent 65%
-        );
+            gap:
+                16px;
+        }
 
-    pointer-events:none;
-}
+        .status {
+            margin-bottom:
+                12px;
 
-.featured-card:hover{
-    transform:
-        translateY(-3px);
+            color:
+                var(--text-soft);
 
-    border-color:
-        rgba(124,255,143,0.60);
+            font-size:
+                14px;
+        }
 
-    background:
-        linear-gradient(
-            145deg,
-            #0f1a2d,
-            #0a1423
-        );
-}
+        .status-dot {
+            display:
+                inline-block;
 
-.featured-card h3{
-    margin:
-        0 0
-        12px;
+            width:
+                10px;
 
-    font-size:22px;
-}
+            height:
+                10px;
 
-.featured-card p{
-    margin:
-        0 0
-        18px;
+            margin-right:
+                8px;
 
-    color:var(--text-soft);
+            border-radius:
+                50%;
 
-    max-width:780px;
-}
+            background:
+                var(--green);
 
-.article-meta{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
+            box-shadow:
+                0 0 10px
+                rgba(124,255,143,0.7);
+        }
 
-    margin-bottom:16px;
-}
+        .status-dot.yellow {
+            background:
+                #facc15;
 
-.meta-pill{
-    padding:
-        5px 10px;
+            box-shadow:
+                0 0 10px
+                rgba(250,204,21,0.45);
+        }
 
-    border-radius:999px;
 
-    border:
-        1px solid
-        var(--border);
+        /* =========================
+           DEVELOPMENT
+        ========================= */
 
-    color:#9fb0c6;
+        .development-grid {
+            display:
+                grid;
 
-    font-size:13px;
-}
+            grid-template-columns:
+                repeat(2, 1fr);
 
-.read-more{
-    display:inline-block;
+            gap:
+                16px;
+        }
 
-    color:var(--green);
+        .development-card h3 {
+            color:
+                var(--green-soft);
+        }
 
-    text-decoration:none;
+        .development-card p {
+            color:
+                var(--text-muted);
+        }
 
-    font-weight:600;
 
-    transition:
-        transform 0.2s ease,
-        color 0.2s ease;
-}
+        /* =========================
+           FOOTER
+        ========================= */
 
-.read-more:hover{
-    transform:
-        translateX(3px);
+        .footer {
+            margin-top:
+                100px;
 
-    color:var(--green-soft);
-}
+            padding:
+                28px
+                0;
 
+            border-top:
+                1px solid
+                var(--border);
 
-/* ============================================================
-   LAB GRID
-   ============================================================ */
+            display:
+                flex;
 
-.lab-grid{
-    display:grid;
+            justify-content:
+                space-between;
 
-    grid-template-columns:
-        repeat(3,1fr);
+            gap:
+                20px;
 
-    gap:16px;
-}
+            color:
+                var(--text-muted);
 
-.lab-card{
-    background:var(--panel);
+            font-size:
+                14px;
+        }
 
-    border:
-        1px solid
-        var(--border);
+        .footer a {
+            color:
+                var(--text-muted);
 
-    border-radius:16px;
+            text-decoration:
+                none;
+        }
 
-    padding:22px;
+        .footer a:hover {
+            color:
+                var(--green);
+        }
 
-    min-height:135px;
 
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        background 0.25s ease;
-}
+        /* =========================
+           RESPONSIVE
+        ========================= */
 
-.lab-card:hover{
-    transform:
-        translateY(-3px);
+        @media(max-width: 800px) {
 
-    border-color:
-        rgba(124,255,143,0.50);
+            .navbar {
+                flex-direction:
+                    column;
 
-    background:var(--panel-hover);
-}
+                gap:
+                    12px;
 
-.lab-status{
-    display:inline-flex;
+                padding:
+                    14px
+                    18px;
+            }
 
-    align-items:center;
+            .nav-links {
+                justify-content:
+                    center;
 
-    gap:8px;
+                flex-wrap:
+                    wrap;
 
-    color:var(--text-soft);
+                gap:
+                    10px
+                    18px;
+            }
 
-    font-size:14px;
+            .hero {
+                min-height:
+                    430px;
 
-    margin-bottom:12px;
-}
+                padding:
+                    50px
+                    10px;
+            }
 
-.status-dot{
-    width:10px;
-    height:10px;
+            .hero h1 {
+                letter-spacing:
+                    -1px;
+            }
 
-    border-radius:50%;
+            .hero-subtitle {
+                font-size:
+                    20px;
+            }
 
-    background:var(--green);
+            .tags {
+                font-size:
+                    16px;
+            }
 
-    box-shadow:
-        0 0 8px
-        rgba(124,255,143,0.35);
-}
+            .lab-grid,
+            .development-grid {
+                grid-template-columns:
+                    1fr;
+            }
 
-.status-dot.yellow{
-    background:#f4c84f;
+            .section-header {
+                align-items:
+                    flex-start;
 
-    box-shadow:
-        0 0 8px
-        rgba(244,200,79,0.28);
-}
+                flex-direction:
+                    column;
+            }
 
-.lab-card h3{
-    margin:
-        0 0
-        8px;
+            .footer {
+                flex-direction:
+                    column;
+            }
 
-    font-size:18px;
-}
+        }
 
-.lab-card p{
-    margin:0;
+    </style>
 
-    color:var(--text-muted);
-
-    font-size:14px;
-}
-
-
-/* ============================================================
-   DEVELOPMENT
-   ============================================================ */
-
-.development-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:16px;
-}
-
-.dev-card{
-    border:
-        1px solid
-        var(--border);
-
-    background:#08101d;
-
-    border-radius:16px;
-
-    padding:22px;
-}
-
-.dev-card h3{
-    color:var(--green-soft);
-
-    margin:
-        0 0
-        8px;
-}
-
-.dev-card p{
-    color:var(--text-muted);
-
-    margin:0;
-}
-
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-
-.footer{
-    margin-top:100px;
-
-    padding:
-        30px 0
-        10px;
-
-    border-top:
-        1px solid
-        var(--border);
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    gap:20px;
-
-    color:var(--text-muted);
-
-    font-size:14px;
-}
-
-.footer-links{
-    display:flex;
-
-    gap:18px;
-}
-
-.footer-links a{
-    color:var(--text-muted);
-
-    text-decoration:none;
-
-    transition:
-        color 0.2s ease;
-}
-
-.footer-links a:hover{
-    color:var(--green);
-}
-
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-
-@media (max-width:900px){
-
-    .lab-grid{
-        grid-template-columns:
-            1fr;
-    }
-
-    .development-grid{
-        grid-template-columns:
-            1fr;
-    }
-
-}
-
-@media (max-width:760px){
-
-    .navbar{
-        padding:
-            14px 20px;
-
-        flex-direction:column;
-
-        gap:12px;
-    }
-
-    .nav-links{
-        flex-wrap:wrap;
-
-        justify-content:center;
-
-        gap:
-            8px 18px;
-    }
-
-    .hero{
-        padding:
-            40px 10px
-            30px;
-    }
-
-    .section-header{
-        align-items:flex-start;
-
-        flex-direction:column;
-
-        gap:4px;
-    }
-
-    .footer{
-        flex-direction:column;
-
-        text-align:center;
-    }
-
-}
-
-@media (max-width:520px){
-
-    .container{
-        padding:
-            20px 14px
-            35px;
-    }
-
-    .nav-logo{
-        font-size:21px;
-    }
-
-    .nav-links a{
-        font-size:14px;
-    }
-
-    .hero h1{
-        font-size:40px;
-    }
-
-    .category-buttons button{
-        padding:
-            9px 14px;
-
-        font-size:14px;
-    }
-
-    .featured-card{
-        padding:22px;
-    }
-
-}
-
-
-/* ============================================================
-   ACCESSIBILITY
-   ============================================================ */
-
-@media (prefers-reduced-motion:reduce){
-
-    html{
-        scroll-behavior:auto;
-    }
-
-    *,
-    *::before,
-    *::after{
-        transition:none !important;
-    }
-
-}
-
-</style>
 </head>
+
 
 <body>
 
 
-<!-- =========================================================
-     NAVBAR
-     ========================================================= -->
+<!-- =========================
+     NAVIGATION
+========================= -->
 
 <nav class="navbar">
 
-<div class="nav-logo">
-Linuksowo to i owo
-</div>
+    <div class="nav-logo">
+        Linuksowo to i owo
+    </div>
 
-<div class="nav-links">
+    <div class="nav-links">
 
-<a class="active" href="#start">
-Start
-</a>
+        <a class="active"
+           href="index.html">
+            Start
+        </a>
 
-<a href="#artykuly">
-Artykuły
-</a>
+        <a href="articles/">
+            Artykuły
+        </a>
 
-<a href="#laboratorium">
-Laboratorium
-</a>
+        <a href="#laboratorium">
+            Laboratorium
+        </a>
 
-<a
-href="https://github.com/jckkrawczyk-droid/linuksowotoiowo"
-target="_blank"
-rel="noopener noreferrer"
->
-GitHub
-</a>
+        <a
+            href="https://github.com/jckkrawczyk-droid/linuksowotoiowo"
+            target="_blank"
+            rel="noopener noreferrer">
+            GitHub
+        </a>
 
-<a
-href="https://www.facebook.com/groups/1503868154056317"
-target="_blank"
-rel="noopener noreferrer"
->
-Facebook
-</a>
+        <a
+            href="https://www.facebook.com/groups/1503868154056317"
+            target="_blank"
+            rel="noopener noreferrer">
+            Facebook
+        </a>
 
-</div>
+    </div>
 
 </nav>
 
 
-<!-- =========================================================
-     MAIN
-     ========================================================= -->
-
-<div class="container">
+<main class="container">
 
 
-<!-- =========================================================
+<!-- =========================
      HERO
-     ========================================================= -->
+========================= -->
 
-<section
-class="hero"
-id="start"
->
+<section class="hero">
 
-<div class="hero-badge">
-● projekt technologiczny
-</div>
+    <div class="hero-badge">
+        ● projekt technologiczny
+    </div>
 
-<h1>
-Linuksowo to i owo
-</h1>
+    <h1>
+        Linuksowo to i owo
+    </h1>
 
-<p>
-Spokojny rozwój technologiczny.
-</p>
+    <div class="hero-subtitle">
+        Spokojny rozwój technologiczny.
+    </div>
 
-<div class="tags">
-Linux • AI • infrastruktura • homelab • cybersecurity
-</div>
+    <div class="tags">
+        Linux • AI • infrastruktura • homelab • cybersecurity
+    </div>
 
 
-<div class="category-buttons">
+    <div class="category-buttons">
 
-<button>
-Linux
-</button>
+        <a href="articles/">
+            Linux
+        </a>
 
-<button>
-AI
-</button>
+        <a href="articles/">
+            AI
+        </a>
 
-<button>
-Homelab
-</button>
+        <a href="articles/">
+            Homelab
+        </a>
 
-<button>
-Cybersecurity
-</button>
+        <a href="articles/">
+            Cybersecurity
+        </a>
 
-<button>
-Sieci
-</button>
+        <a href="articles/">
+            Sieci
+        </a>
 
-<button>
-Matematyka
-</button>
+        <a href="articles/">
+            Matematyka
+        </a>
 
-</div>
+    </div>
 
 </section>
 
 
-<!-- =========================================================
-     NAJNOWSZY ARTYKUŁ
-     ========================================================= -->
+<!-- =========================
+     LATEST ARTICLE
+========================= -->
 
 <section
-class="section"
-id="artykuly"
->
+    class="section"
+    id="artykuly">
 
-<div class="section-header">
+    <div class="section-header">
 
-<div>
-<h2>
-📰 Najnowszy artykuł
-</h2>
-</div>
+        <h2>
+            📰 Najnowszy artykuł
+        </h2>
 
-<div class="section-subtitle">
-Notatki z budowy własnego środowiska IT
-</div>
+        <div class="section-description">
+            Notatki z budowy własnego środowiska IT
+        </div>
 
-</div>
+    </div>
 
 
-<div class="featured-card">
+    <article class="card">
 
-<div class="article-meta">
+        <div class="article-tags">
 
-<span class="meta-pill">
-Linux
-</span>
+            <span class="article-tag">
+                Linux
+            </span>
 
-<span class="meta-pill">
-Homelab
-</span>
+            <span class="article-tag">
+                Homelab
+            </span>
 
-<span class="meta-pill">
-Projekt
-</span>
+            <span class="article-tag">
+                Projekt
+            </span>
 
-</div>
+        </div>
 
 
-<h3>
-Dlaczego powstało Linuksowo to i owo
-</h3>
+        <h3>
+            Dlaczego powstało Linuksowo to i owo
+        </h3>
 
-<p>
-Pierwszy wpis opisujący ideę projektu,
-spokojnej edukacji technologicznej,
-budowy własnego środowiska IT
-oraz rozwijania praktycznych kompetencji.
-</p>
 
-<a
-class="read-more"
-href="articles/pierwszy-artykul.html"
->
-Czytaj artykuł →
-</a>
+        <p>
+            Pierwszy wpis opisujący ideę projektu,
+            spokojnej edukacji technologicznej
+            i budowy własnego środowiska IT.
+        </p>
 
-</div>
+
+        <a
+            class="card-link"
+            href="articles/pierwszy-artykul.html">
+            Czytaj artykuł →
+        </a>
+
+    </article>
+
+
+    <div style="margin-top:18px;">
+
+        <a
+            class="card-link"
+            href="articles/">
+            Zobacz wszystkie artykuły →
+        </a>
+
+    </div>
 
 </section>
 
 
-<!-- =========================================================
-     LABORATORIUM
-     ========================================================= -->
+<!-- =========================
+     LABORATORY
+========================= -->
 
 <section
-class="section"
-id="laboratorium"
->
-
-<div class="section-header">
-
-<div>
-<h2>
-🧪 Laboratorium
-</h2>
-</div>
-
-<div class="section-subtitle">
-Aktualny stan projektów i infrastruktury
-</div>
-
-</div>
+    class="section"
+    id="laboratorium">
 
 
-<div class="lab-grid">
+    <div class="section-header">
+
+        <h2>
+            🧪 Laboratorium
+        </h2>
+
+        <div class="section-description">
+            Aktualny stan projektów
+        </div>
+
+    </div>
 
 
-<div class="lab-card">
-
-<div class="lab-status">
-
-<span class="status-dot">
-</span>
-
-Online
-
-</div>
-
-<h3>
-GitHub Pages
-</h3>
-
-<p>
-Strona projektu działa na własnej domenie
-i jest publikowana z repozytorium GitHub.
-</p>
-
-</div>
+    <div class="lab-grid">
 
 
-<div class="lab-card">
+        <div class="card">
 
-<div class="lab-status">
+            <div class="status">
 
-<span class="status-dot yellow">
-</span>
+                <span class="status-dot"></span>
 
-W rozbudowie
+                Online
 
-</div>
+            </div>
 
-<h3>
-Homelab
-</h3>
+            <h3>
+                GitHub Pages
+            </h3>
 
-<p>
-Środowisko testowe do nauki Linuksa,
-sieci, zdalnego dostępu
-i automatyzacji.
-</p>
+            <p>
+                Strona projektu działa na własnej domenie
+                i jest publikowana z repozytorium GitHub.
+            </p>
 
-</div>
+        </div>
 
 
-<div class="lab-card">
+        <div class="card">
 
-<div class="lab-status">
+            <div class="status">
 
-<span class="status-dot">
-</span>
+                <span class="status-dot yellow"></span>
 
-Aktywne
+                W rozbudowie
 
-</div>
+            </div>
 
-<h3>
-AI / Linux / infrastruktura
-</h3>
+            <h3>
+                Homelab
+            </h3>
 
-<p>
-Praktyczne projekty łączące
-administrację systemami,
-programowanie i narzędzia AI.
-</p>
+            <p>
+                Środowisko testowe do nauki Linuksa,
+                sieci, zdalnego dostępu
+                i automatyzacji.
+            </p>
 
-</div>
+        </div>
 
 
-</div>
+        <div class="card">
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                Aktywne
+
+            </div>
+
+            <h3>
+                AI / Linux / infrastruktura
+            </h3>
+
+            <p>
+                Praktyczne projekty łączące
+                administrację systemami,
+                programowanie
+                i narzędzia AI.
+            </p>
+
+        </div>
+
+
+    </div>
 
 </section>
 
 
-<!-- =========================================================
-     KIERUNKI ROZWOJU
-     ========================================================= -->
+<!-- =========================
+     DEVELOPMENT
+========================= -->
 
 <section class="section">
 
-<div class="section-header">
 
-<div>
-<h2>
-🧭 Kierunki rozwoju
-</h2>
-</div>
+    <div class="section-header">
 
-<div class="section-subtitle">
-Co będzie rozwijane dalej
-</div>
+        <h2>
+            🧭 Kierunki rozwoju
+        </h2>
 
-</div>
+        <div class="section-description">
+            Co będzie rozwijane dalej
+        </div>
 
-
-<div class="development-grid">
+    </div>
 
 
-<div class="dev-card">
-
-<h3>
-Projekty
-</h3>
-
-<p>
-Kolejne narzędzia Python,
-automatyzacje, monitoring
-oraz projekty infrastrukturalne.
-</p>
-
-</div>
+    <div class="development-grid">
 
 
-<div class="dev-card">
+        <div class="card development-card">
 
-<h3>
-Analiza danych
-</h3>
+            <h3>
+                Projekty
+            </h3>
 
-<p>
-Rozwój narzędzi do analizy danych,
-finansów i budowy własnych
-systemów wspomagających decyzje.
-</p>
+            <p>
+                Kolejne narzędzia Python,
+                automatyzacje,
+                monitoring oraz projekty
+                infrastrukturalne.
+            </p>
 
-</div>
-
-
-<div class="dev-card">
-
-<h3>
-Cybersecurity
-</h3>
-
-<p>
-Laboratorium bezpieczeństwa,
-Linux, sieci i praktyczna nauka
-ochrony systemów.
-</p>
-
-</div>
+        </div>
 
 
-<div class="dev-card">
+        <div class="card development-card">
 
-<h3>
-AI
-</h3>
+            <h3>
+                Analiza danych
+            </h3>
 
-<p>
-Wykorzystanie modeli AI
-do automatyzacji, analizy
-i rozwoju własnych projektów.
-</p>
+            <p>
+                Rozwój narzędzi do analizy danych,
+                finansów i budowy własnych
+                systemów wspomagających decyzje.
+            </p>
 
-</div>
+        </div>
 
 
-</div>
+        <div class="card development-card">
+
+            <h3>
+                Cybersecurity
+            </h3>
+
+            <p>
+                Laboratorium bezpieczeństwa,
+                Linux, sieci
+                i praktyczna nauka
+                ochrony systemów.
+            </p>
+
+        </div>
+
+
+        <div class="card development-card">
+
+            <h3>
+                AI
+            </h3>
+
+            <p>
+                Wykorzystanie modeli AI
+                do automatyzacji,
+                analizy
+                i rozwoju własnych projektów.
+            </p>
+
+        </div>
+
+
+    </div>
 
 </section>
 
 
-<!-- =========================================================
+<!-- =========================
      FOOTER
-     ========================================================= -->
+========================= -->
 
 <footer class="footer">
 
-<div>
-Linuksowo to i owo • 2026
-</div>
+    <div>
+        Linuksowo to i owo • 2026
+    </div>
 
-<div class="footer-links">
-
-<a href="#start">
-Start
-</a>
-
-<a href="#artykuly">
-Artykuły
-</a>
-
-<a href="#laboratorium">
-Laboratorium
-</a>
-
-<a
-href="https://github.com/jckkrawczyk-droid/linuksowotoiowo"
-target="_blank"
-rel="noopener noreferrer"
->
-GitHub
-</a>
-
-</div>
+    <div>
+        Linux • AI • infrastruktura • homelab
+    </div>
 
 </footer>
 
 
-</div>
+</main>
 
 </body>
 </html>
