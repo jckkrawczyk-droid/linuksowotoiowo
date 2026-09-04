@@ -1,69 +1,984 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dlaczego powstało Linuksowo to i owo</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Dlaczego powstało Linuksowo to i owo — projekt poświęcony Linuxowi, AI, homelabowi, infrastrukturze, sieciom i praktycznej nauce IT.">
+
+    <title>
+        Dlaczego powstało Linuksowo to i owo
+    </title>
+
 
     <style>
-        body{
-            background:#050816;
-            color:#E5E7EB;
-            font-family:Arial,sans-serif;
-            max-width:900px;
-            margin:auto;
-            padding:40px;
+
+        :root {
+            --bg:#050816;
+            --nav:#07101f;
+            --panel:#0b1220;
+            --panel-soft:#09111f;
+            --border:#1e293b;
+
+            --text:#e5e7eb;
+            --text-soft:#cbd5e1;
+            --text-muted:#7183a3;
+
+            --green:#7cff8f;
+            --green-soft:#a4ffb1;
+        }
+
+
+        * {
+            box-sizing:border-box;
+        }
+
+
+        html {
+            scroll-behavior:smooth;
+        }
+
+
+        body {
+            margin:0;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(124,255,143,0.05),
+                    transparent 35%
+                ),
+                var(--bg);
+
+            color:var(--text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             line-height:1.8;
         }
 
-        h1{
-            color:#7CFF8F;
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            position:sticky;
+            top:0;
+            z-index:1000;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:14px 36px;
+
+            background:
+                rgba(7,16,31,0.95);
+
+            backdrop-filter:blur(12px);
+
+            border-bottom:
+                1px solid
+                var(--border);
         }
 
-        a{
-            color:#7CFF8F;
+
+        .nav-logo {
+            color:var(--green);
+
+            font-size:24px;
+            font-weight:700;
+
+            text-decoration:none;
         }
 
-        .back{
-            margin-bottom:40px;
+
+        .nav-links {
+            display:flex;
+            align-items:center;
+
+            gap:27px;
         }
+
+
+        .nav-links a {
+            color:var(--text-soft);
+
+            text-decoration:none;
+
+            transition:
+                color 0.2s ease;
+        }
+
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color:var(--green);
+        }
+
+
+        /* =========================
+           ARTICLE CONTAINER
+        ========================= */
+
+        .article-container {
+            max-width:900px;
+
+            margin:auto;
+
+            padding:
+                60px
+                24px
+                70px;
+        }
+
+
+        /* =========================
+           BACK LINK
+        ========================= */
+
+        .back-link {
+            display:inline-block;
+
+            margin-bottom:35px;
+
+            color:var(--green);
+
+            text-decoration:none;
+
+            font-size:15px;
+        }
+
+
+        .back-link:hover {
+            color:var(--green-soft);
+        }
+
+
+        /* =========================
+           ARTICLE HEADER
+        ========================= */
+
+        .article-header {
+            margin-bottom:45px;
+        }
+
+
+        .article-label {
+            display:inline-block;
+
+            margin-bottom:16px;
+
+            padding:
+                7px
+                13px;
+
+            border:
+                1px solid
+                rgba(124,255,143,0.25);
+
+            border-radius:999px;
+
+            background:
+                rgba(124,255,143,0.05);
+
+            color:var(--green);
+
+            font-size:14px;
+        }
+
+
+        .article-header h1 {
+            margin:
+                0
+                0
+                18px;
+
+            color:var(--green);
+
+            font-size:
+                clamp(
+                    38px,
+                    6vw,
+                    54px
+                );
+
+            line-height:1.15;
+
+            letter-spacing:-1px;
+        }
+
+
+        .article-intro {
+            margin:
+                0
+                0
+                18px;
+
+            color:var(--text-soft);
+
+            font-size:20px;
+
+            line-height:1.7;
+        }
+
+
+        .article-meta {
+            display:flex;
+            flex-wrap:wrap;
+
+            gap:10px;
+
+            margin-top:22px;
+        }
+
+
+        .meta-tag {
+            padding:
+                5px
+                10px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:999px;
+
+            color:#9fb0c6;
+
+            font-size:13px;
+        }
+
+
+        /* =========================
+           ARTICLE CONTENT
+        ========================= */
+
+        .article-content {
+            font-size:18px;
+        }
+
+
+        .article-content h2 {
+            margin:
+                52px
+                0
+                16px;
+
+            color:var(--green-soft);
+
+            font-size:28px;
+        }
+
+
+        .article-content h3 {
+            margin:
+                35px
+                0
+                12px;
+
+            color:var(--text);
+
+            font-size:21px;
+        }
+
+
+        .article-content p {
+            margin:
+                0
+                0
+                22px;
+        }
+
+
+        .article-content strong {
+            color:#ffffff;
+        }
+
+
+        .article-content ul {
+            margin:
+                15px
+                0
+                28px;
+
+            padding-left:25px;
+        }
+
+
+        .article-content li {
+            margin-bottom:10px;
+        }
+
+
+        /* =========================
+           INFO BOX
+        ========================= */
+
+        .info-box {
+            margin:
+                35px
+                0;
+
+            padding:
+                24px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:16px;
+        }
+
+
+        .info-box strong {
+            color:var(--green);
+        }
+
+
+        /* =========================
+           ARTICLE END
+        ========================= */
+
+        .article-end {
+            margin-top:55px;
+
+            padding-top:30px;
+
+            border-top:
+                1px solid
+                var(--border);
+        }
+
+
+        .article-end p {
+            color:var(--text-soft);
+        }
+
+
+        .article-button {
+            display:inline-block;
+
+            margin-top:8px;
+
+            padding:
+                10px
+                17px;
+
+            background:var(--panel);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:10px;
+
+            color:var(--green);
+
+            text-decoration:none;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .article-button:hover {
+            background:var(--green);
+
+            color:var(--bg);
+
+            border-color:var(--green);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            max-width:900px;
+
+            margin:
+                0
+                auto;
+
+            padding:
+                28px
+                24px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+            display:flex;
+            justify-content:space-between;
+
+            gap:20px;
+
+            color:var(--text-muted);
+
+            font-size:14px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width:800px) {
+
+            .navbar {
+                flex-direction:column;
+
+                gap:12px;
+
+                padding:
+                    14px
+                    18px;
+            }
+
+
+            .nav-links {
+                justify-content:center;
+
+                flex-wrap:wrap;
+
+                gap:
+                    10px
+                    18px;
+            }
+
+
+            .article-container {
+                padding:
+                    40px
+                    18px
+                    55px;
+            }
+
+
+            .article-content {
+                font-size:17px;
+            }
+
+
+            .footer {
+                flex-direction:column;
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
 
-<div class="back">
-<a href="../index.html">← Powrót do strony głównej</a>
-</div>
 
-<h1>Dlaczego powstało Linuksowo to i owo</h1>
+<!-- =========================
+     NAVIGATION
+========================= -->
 
-<p>
-Linuksowo to i owo powstało jako spokojna przestrzeń
-do nauki technologii związanych z Linuxem,
-AI, infrastrukturą, sieciami i cybersecurity.
-</p>
+<nav class="navbar">
 
-<p>
-To projekt budowany krok po kroku,
-bez chaosu i bez udawania eksperta od wszystkiego.
-</p>
+    <a
+        class="nav-logo"
+        href="../index.html">
 
-<p>
-Na stronie będą pojawiać się:
-</p>
+        Linuksowo to i owo
 
-<ul>
-<li>eksperymenty homelabowe</li>
-<li>Linux desktop i serwery</li>
-<li>monitoring i infrastruktura</li>
-<li>AI lokalne</li>
-<li>cybersecurity basics</li>
-<li>matematyka dla IT</li>
-</ul>
+    </a>
 
-<p>
-To dopiero początek 🌱
-</p>
+
+    <div class="nav-links">
+
+        <a href="../index.html">
+            Start
+        </a>
+
+        <a
+            class="active"
+            href="index.html">
+            Artykuły
+        </a>
+
+        <a href="../index.html#laboratorium">
+            Laboratorium
+        </a>
+
+        <a
+            href="https://github.com/jckkrawczyk-droid/linuksowotoiowo"
+            target="_blank"
+            rel="noopener noreferrer">
+            GitHub
+        </a>
+
+        <a
+            href="https://www.facebook.com/groups/1503868154056317"
+            target="_blank"
+            rel="noopener noreferrer">
+            Facebook
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     ARTICLE
+========================= -->
+
+<main class="article-container">
+
+
+    <a
+        class="back-link"
+        href="index.html">
+
+        ← Wszystkie artykuły
+
+    </a>
+
+
+    <header class="article-header">
+
+
+        <div class="article-label">
+            📝 pierwszy wpis
+        </div>
+
+
+        <h1>
+            Dlaczego powstało Linuksowo to i owo
+        </h1>
+
+
+        <p class="article-intro">
+
+            Linuksowo to i owo powstało jako miejsce
+            do spokojnego rozwijania praktycznych
+            umiejętności związanych z informatyką —
+            bez udawania eksperta od wszystkiego
+            i bez budowania wiedzy wyłącznie na teorii.
+
+        </p>
+
+
+        <div class="article-meta">
+
+            <span class="meta-tag">
+                Linux
+            </span>
+
+            <span class="meta-tag">
+                Homelab
+            </span>
+
+            <span class="meta-tag">
+                Projekty
+            </span>
+
+            <span class="meta-tag">
+                Nauka IT
+            </span>
+
+            <span class="meta-tag">
+                2026
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <article class="article-content">
+
+
+        <p>
+
+            Pomysł na tę stronę pojawił się razem
+            z decyzją, żeby potraktować naukę informatyki
+            jako coś więcej niż zbiór kursów,
+            tutoriali i pojedynczych ćwiczeń.
+
+            Chcę uczyć się przede wszystkim przez
+            <strong>budowanie rzeczy, które rzeczywiście działają</strong>.
+
+        </p>
+
+
+        <p>
+
+            Dlatego zamiast tworzyć stronę o technologii
+            w oderwaniu od praktyki, Linuksowo to i owo
+            ma być zapisem realnych projektów:
+            od konfiguracji Linuksa i sieci,
+            przez homelab i monitoring,
+            aż po programowanie, analizę danych
+            i wykorzystanie AI.
+
+        </p>
+
+
+        <h2>
+            Nauka przez prawdziwe problemy
+        </h2>
+
+
+        <p>
+
+            Najwięcej można nauczyć się wtedy,
+            kiedy coś przestaje działać.
+
+            Niedziałające SSH, błędna konfiguracja sieci,
+            problem ze sterownikiem, urządzenie,
+            którego Linux nie rozpoznaje,
+            albo skrypt zwracający niewłaściwe dane
+            są często lepszą lekcją niż kilkadziesiąt
+            stron teorii.
+
+        </p>
+
+
+        <p>
+
+            Dlatego wiele materiałów na tej stronie
+            będzie powstawało właśnie podczas
+            rozwiązywania takich problemów.
+
+        </p>
+
+
+        <div class="info-box">
+
+            <strong>Założenie projektu:</strong>
+
+            nie pokazywać wyłącznie gotowego rezultatu,
+            ale również proces dochodzenia do rozwiązania,
+            błędy, testy i poprawki.
+
+        </div>
+
+
+        <h2>
+            Linux jako główne środowisko
+        </h2>
+
+
+        <p>
+
+            Linux jest jednym z głównych tematów projektu,
+            ale nie chodzi wyłącznie o sam system operacyjny.
+
+            Interesuje mnie cały ekosystem,
+            który można wokół niego zbudować:
+            serwery, sieci, automatyzacja,
+            kontenery, zdalny dostęp,
+            bezpieczeństwo i urządzenia embedded.
+
+        </p>
+
+
+        <p>
+
+            Z czasem na stronie będą pojawiały się
+            zarówno podstawowe materiały,
+            jak i bardziej rozbudowane projekty.
+
+        </p>
+
+
+        <h2>
+            Homelab jako własne laboratorium
+        </h2>
+
+
+        <p>
+
+            Jednym z najważniejszych elementów projektu
+            jest własny homelab.
+
+            To środowisko, w którym można eksperymentować
+            bez obawy, że coś się zepsuje.
+
+        </p>
+
+
+        <p>
+
+            W takim laboratorium można testować między innymi:
+
+        </p>
+
+
+        <ul>
+
+            <li>
+                Linux desktop i serwery
+            </li>
+
+            <li>
+                SSH i zdalny dostęp
+            </li>
+
+            <li>
+                sieci lokalne i VPN
+            </li>
+
+            <li>
+                monitoring
+            </li>
+
+            <li>
+                ESP32 i urządzenia IoT
+            </li>
+
+            <li>
+                kontenery i usługi sieciowe
+            </li>
+
+            <li>
+                bezpieczeństwo systemów
+            </li>
+
+            <li>
+                automatyzację
+            </li>
+
+        </ul>
+
+
+        <h2>
+            Programowanie i analiza danych
+        </h2>
+
+
+        <p>
+
+            Drugim kierunkiem są własne narzędzia.
+
+            Zamiast traktować Pythona wyłącznie
+            jako język do wykonywania ćwiczeń,
+            chcę wykorzystywać go do rozwiązywania
+            rzeczywistych problemów.
+
+        </p>
+
+
+        <p>
+
+            Przykładem jest rozwijany system
+            analizy danych finansowych,
+            który pobiera dane z różnych źródeł,
+            przetwarza je i zapisuje
+            do przygotowanej struktury analitycznej.
+
+        </p>
+
+
+        <p>
+
+            Takie projekty pozwalają jednocześnie
+            ćwiczyć programowanie, API,
+            obsługę danych, debugowanie
+            i projektowanie większego systemu.
+
+        </p>
+
+
+        <h2>
+            AI jako narzędzie, nie temat sam w sobie
+        </h2>
+
+
+        <p>
+
+            AI również będzie częścią projektu,
+            ale przede wszystkim jako narzędzie
+            wspierające pracę.
+
+        </p>
+
+
+        <p>
+
+            Może pomagać w analizowaniu błędów,
+            projektowaniu rozwiązań,
+            dokumentowaniu kodu,
+            porządkowaniu danych
+            czy automatyzowaniu powtarzalnych czynności.
+
+        </p>
+
+
+        <p>
+
+            Jednocześnie zależy mi na tym,
+            żeby rozumieć, co dzieje się pod spodem,
+            zamiast ograniczać się do kopiowania
+            gotowych odpowiedzi.
+
+        </p>
+
+
+        <h2>
+            Co będzie pojawiało się na stronie
+        </h2>
+
+
+        <p>
+
+            Linuksowo to i owo będzie stopniowo
+            zbierało materiały z kilku obszarów:
+
+        </p>
+
+
+        <ul>
+
+            <li>
+                Linux i administracja systemami
+            </li>
+
+            <li>
+                homelab i infrastruktura
+            </li>
+
+            <li>
+                sieci
+            </li>
+
+            <li>
+                monitoring i IoT
+            </li>
+
+            <li>
+                cybersecurity
+            </li>
+
+            <li>
+                Python i automatyzacja
+            </li>
+
+            <li>
+                analiza danych
+            </li>
+
+            <li>
+                AI
+            </li>
+
+            <li>
+                testy sprzętu współpracującego z Linuxem
+            </li>
+
+        </ul>
+
+
+        <h2>
+            Projekt długoterminowy
+        </h2>
+
+
+        <p>
+
+            Nie zakładam, że strona od razu będzie
+            dużym portalem z setkami materiałów.
+
+            Ma rozwijać się razem z kolejnymi projektami
+            i zdobywaną wiedzą.
+
+        </p>
+
+
+        <p>
+
+            Jeśli jakiś projekt okaże się użyteczny,
+            zostanie opisany.
+
+            Jeśli coś nie zadziała,
+            również może zostać opisane,
+            bo często właśnie takie doświadczenia
+            są najbardziej wartościowe.
+
+        </p>
+
+
+        <div class="info-box">
+
+            <strong>Linuksowo to i owo</strong>
+            ma być przede wszystkim
+            dokumentacją praktycznej drogi:
+            od prostych eksperymentów
+            do coraz bardziej rozbudowanych systemów.
+
+        </div>
+
+
+        <div class="article-end">
+
+            <p>
+
+                To pierwszy wpis i punkt startowy.
+                Kolejne materiały będą już dotyczyły
+                konkretnych projektów, konfiguracji
+                i problemów technicznych.
+
+            </p>
+
+
+            <a
+                class="article-button"
+                href="index.html">
+
+                Zobacz wszystkie artykuły →
+
+            </a>
+
+        </div>
+
+
+    </article>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div>
+        Linuksowo to i owo • 2026
+    </div>
+
+    <div>
+        Linux • AI • infrastruktura • homelab
+    </div>
+
+</footer>
+
 
 </body>
+
 </html>
