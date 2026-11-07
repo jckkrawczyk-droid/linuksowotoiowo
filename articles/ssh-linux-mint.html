@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SSH w Linux Mint — zdalne zarządzanie systemem | Linuksowo to i owo</title>
+
+    <meta name="description"
+          content="Praktyczny poradnik SSH w Linux Mint. Instalacja serwera OpenSSH, konfiguracja, połączenie zdalne i podstawowe polecenia.">
+
+    <style>
+        :root {
+            --bg: #050816;
+            --panel: #0b1220;
+            --border: #1e293b;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --green: #7cff8f;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070f1f;
+            border-bottom: 1px solid var(--border);
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        header h1 {
+            color: var(--green);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--muted);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        article {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 30px;
+        }
+
+        h2 {
+            color: var(--green);
+            margin-top: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: #cbd5e1;
+            margin-top: 25px;
+        }
+
+        p {
+            color: #cbd5e1;
+        }
+
+        a {
+            color: var(--green);
+        }
+
+        pre {
+            background: #020617;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px;
+            overflow-x: auto;
+        }
+
+        code {
+            color: var(--green);
+            font-family: Consolas, monospace;
+        }
+
+        pre code {
+            color: #d1fae5;
+        }
+
+        .info {
+            background: #0f1b2d;
+            border-left: 4px solid var(--green);
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+
+        .warning {
+            background: #211a0b;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+
+        .terminal-image {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin: 20px 0;
+        }
+
+        .caption {
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .tag {
+            display: inline-block;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 4px 12px;
+            color: var(--green);
+            font-size: 13px;
+            margin-right: 5px;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            padding: 30px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            article {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="../index.html">← Linuksowo to i owo</a>
+
+    <h1>SSH w Linux Mint</h1>
+
+    <p>Zdalne zarządzanie systemem z terminala</p>
+
+    <span class="tag">Linux</span>
+    <span class="tag">SSH</span>
+    <span class="tag">Terminal</span>
+    <span class="tag">Homelab</span>
+</header>
+
+<main>
+    <article>
+
+        <p>
+            <strong>SSH (Secure Shell)</strong> to jeden z podstawowych
+            protokołów wykorzystywanych przez administratorów systemów Linux.
+            Pozwala na bezpieczne zarządzanie komputerem zdalnym,
+            wykonywanie poleceń oraz przesyłanie plików.
+        </p>
+
+        <div class="info">
+            SSH umożliwia pracę na komputerze bez konieczności fizycznego
+            dostępu do jego klawiatury, myszy czy monitora.
+        </div>
+
+        <h2>1. Jak działa SSH?</h2>
+
+        <p>
+            Połączenie SSH odbywa się pomiędzy komputerem klienckim
+            a komputerem, na którym działa serwer SSH.
+            Komunikacja jest szyfrowana.
+        </p>
+
+        <p>Przykładowa architektura połączenia:</p>
+
+        <pre><code>
+┌────────────────────┐
+│  Komputer klienta │
+│  Linux / Windows  │
+└─────────┬──────────┘
+          │
+          │ SSH — port 22
+          │
+┌─────────▼──────────┐
+│  Komputer zdalny  │
+│  Linux Mint       │
+│  OpenSSH Server   │
+└───────────────────┘
+        </code></pre>
+
+        <h2>2. Instalacja serwera SSH w Linux Mint</h2>
+
+        <p>
+            Linux Mint może korzystać z serwera OpenSSH.
+            Aby go zainstalować, otwórz terminal i wykonaj:
+        </p>
+
+        <pre><code>sudo apt update</code></pre>
+
+        <pre><code>sudo apt install openssh-server</code></pre>
+
+        <p>
+            Podczas instalacji system może poprosić o hasło użytkownika
+            posiadającego uprawnienia administracyjne.
+        </p>
+
+        <h2>3. Sprawdzenie działania usługi</h2>
+
+        <p>Po instalacji sprawdź status serwera SSH:</p>
+
+        <pre><code>sudo systemctl status ssh</code></pre>
+
+        <p>
+            Jeśli usługa jest aktywna, w wyniku powinien pojawić się status:
+        </p>
+
+        <pre><code>Active: active (running)</code></pre>
+
+        <p>Jeżeli usługa nie działa, możesz ją uruchomić:</p>
+
+        <pre><code>sudo systemctl start ssh</code></pre>
+
+        <p>Aby uruchamiała się automatycznie po starcie systemu:</p>
+
+        <pre><code>sudo systemctl enable ssh</code></pre>
+
+        <h2>4. Sprawdzenie adresu IP komputera</h2>
+
+        <p>
+            Aby połączyć się z komputerem w sieci lokalnej,
+            potrzebujesz jego adresu IP.
+        </p>
+
+        <pre><code>hostname -I</code></pre>
+
+        <p>
+            Przykładowy wynik:
+        </p>
+
+        <pre><code>192.168.1.100</code></pre>
+
+        <div class="info">
+            Powyższy adres jest przykładowy. W Twojej sieci komputer
+            może mieć inny adres IP.
+        </div>
+
+        <h2>5. Połączenie z komputerem zdalnym</h2>
+
+        <p>
+            Na drugim komputerze otwórz terminal i wpisz:
+        </p>
+
+        <pre><code>ssh nazwa_uzytkownika@192.168.1.100</code></pre>
+
+        <p>
+            Zastąp nazwę użytkownika oraz adres IP właściwymi
+            danymi komputera docelowego.
+        </p>
+
+        <p>
+            Przy pierwszym połączeniu SSH może poprosić o potwierdzenie
+            autentyczności hosta. Po sprawdzeniu informacji wpisz:
+        </p>
+
+        <pre><code>yes</code></pre>
+
+        <p>
+            Następnie podaj hasło użytkownika komputera zdalnego.
+            Podczas wpisywania hasła terminal nie wyświetla znaków.
+        </p>
+
+        <h2>6. Podstawowe polecenia SSH</h2>
+
+        <h3>Połączenie z serwerem</h3>
+
+        <pre><code>ssh user@192.168.1.100</code></pre>
+
+        <h3>Połączenie z niestandardowym portem</h3>
+
+        <pre><code>ssh -p 2222 user@192.168.1.100</code></pre>
+
+        <h3>Zakończenie sesji</h3>
+
+        <pre><code>exit</code></pre>
+
+        <h2>7. Przesyłanie plików przez SCP</h2>
+
+        <p>
+            SSH umożliwia również przesyłanie plików.
+            Do tego celu można wykorzystać narzędzie SCP.
+        </p>
+
+        <p>Przykład przesłania pliku na komputer zdalny:</p>
+
+        <pre><code>scp dokument.txt user@192.168.1.100:~/</code></pre>
+
+        <p>
+            Przykład pobrania pliku z komputera zdalnego:
+        </p>
+
+        <pre><code>scp user@192.168.1.100:~/dokument.txt .</code></pre>
+
+        <h2>8. SSH w środowisku Homelab</h2>
+
+        <p>
+            SSH jest szczególnie przydatne podczas budowy własnego
+            środowiska Homelab.
+        </p>
+
+        <ul>
+            <li>Administracja serwerami bez monitora.</li>
+            <li>Zdalne zarządzanie Linux Mint.</li>
+            <li>Obsługa Raspberry Pi i mini-PC.</li>
+            <li>Automatyzacja zadań administracyjnych.</li>
+            <li>Przesyłanie plików pomiędzy urządzeniami.</li>
+            <li>Praca z serwerami znajdującymi się w innym miejscu.</li>
+        </ul>
+
+        <h2>9. Bezpieczeństwo</h2>
+
+        <div class="warning">
+            Nie udostępniaj serwera SSH bezpośrednio do Internetu
+            bez odpowiedniej konfiguracji zabezpieczeń.
+        </div>
+
+        <p>Warto pamiętać o kilku zasadach:</p>
+
+        <ul>
+            <li>Używaj silnych haseł.</li>
+            <li>Aktualizuj system i pakiety.</li>
+            <li>Rozważ uwierzytelnianie kluczami SSH.</li>
+            <li>Ogranicz dostęp do serwera do zaufanych urządzeń.</li>
+            <li>Nie udostępniaj prywatnych kluczy SSH.</li>
+        </ul>
+
+        <h2>Podsumowanie</h2>
+
+        <p>
+            SSH jest podstawowym narzędziem w pracy z systemami Linux.
+            Pozwala na zdalne wykonywanie poleceń, zarządzanie serwerami
+            oraz przesyłanie plików.
+        </p>
+
+        <p>
+            Opanowanie SSH to jeden z pierwszych kroków w kierunku
+            administracji systemami Linux, budowy Homelab
+            i zarządzania własną infrastrukturą IT.
+        </p>
+
+        <div class="info">
+            <strong>Praktyka:</strong> Najlepszym sposobem nauki SSH
+            jest skonfigurowanie połączenia pomiędzy dwoma własnymi
+            komputerami lub urządzeniami w sieci.
+        </div>
+
+    </article>
+</main>
+
+<footer>
+    Linuksowo to i owo • 2026
+    <br>
+    Linux • AI • infrastruktura • homelab
+</footer>
+
+</body>
+</html>
