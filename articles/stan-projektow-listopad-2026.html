@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stan projektów IT — Linuksowo to i owo</title>
+    <meta name="description" content="Podsumowanie projektów IT, nauki Pythona, Linux Mint i wniosków z praktycznej pracy nad własnymi narzędziami.">
+    <style>
+        body {
+            background: #050816;
+            color: #e5e7eb;
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        h1, h2 {
+            color: #7cff8f;
+        }
+        h1 {
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 15px;
+        }
+        a {
+            color: #7cff8f;
+        }
+        .date {
+            color: #94a3b8;
+        }
+        .back {
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<a class="back" href="../index.html">← Powrót do strony głównej</a>
+
+<h1>Stan projektów IT i wnioski z nauki</h1>
+<p class="date">Listopad 2026</p>
+
+<h2>Od teorii do praktyki</h2>
+
+<p>
+Nauka IT nabiera sensu wtedy, gdy przestaje być wyłącznie przerabianiem
+materiałów, a zaczyna prowadzić do powstawania rzeczywistych projektów.
+W ostatnich miesiącach rozwijam własne środowisko pracy oparte na Linux Mint,
+Pythonie, terminalu i samodzielnie tworzonych narzędziach.
+</p>
+
+<p>
+Nie chodzi o szybkie zdobywanie kolejnych technologii. Celem jest stopniowe
+budowanie kompetencji, rozumienie działania systemów oraz umiejętność
+rozwiązywania problemów.
+</p>
+
+<h2>1. Daily Data Analyzer — Python w praktyce</h2>
+
+<p>
+Daily Data Analyzer jest obecnie głównym projektem edukacyjnym.
+Program zbiera codzienne dane, takie jak ciśnienie, puls, temperatura,
+wilgotność, ciśnienie atmosferyczne i poziom stresu, a następnie zapisuje
+je w pliku Excel przy użyciu biblioteki openpyxl.
+</p>
+
+<p>
+Projekt rozwijał się etapami. Początkowo skupiałem się na pobieraniu danych
+i zapisywaniu ich w arkuszu. Później pojawiły się automatyczne dodawanie
+rekordów, formatowanie Excela, obsługa błędów oraz walidacja danych.
+</p>
+
+<p>
+Ostatnim ważnym krokiem było stworzenie funkcji pobierającej liczby
+z określonego zakresu. Dzięki temu zamiast powtarzać podobny kod dla
+każdego pola, można korzystać z jednego rozwiązania.
+</p>
+
+<p>
+To ważna lekcja: programowanie polega nie tylko na pisaniu instrukcji,
+ale również na dostrzeganiu powtarzalnych elementów i tworzeniu
+uniwersalnych rozwiązań.
+</p>
+
+<h2>2. Samsung Health Analytics — dane i cierpliwość</h2>
+
+<p>
+Drugim aktywnym projektem jest Samsung Health Analytics. Jego celem
+jest analiza danych treningowych pochodzących z Samsung Health.
+</p>
+
+<p>
+Projekt znajduje się obecnie w fazie gromadzenia danych. Zamiast
+rozpoczynać analizę na niewielkiej próbce, postanowiłem zebrać około
+50 eksportów, a dopiero później rozpocząć właściwe przetwarzanie.
+</p>
+
+<p>Plan obejmuje:</p>
+
+<ul>
+    <li>odczytywanie plików CSV z eksportów,</li>
+    <li>łączenie danych z wielu plików,</li>
+    <li>usuwanie duplikatów,</li>
+    <li>przygotowanie uporządkowanego zbioru danych,</li>
+    <li>analizę przy użyciu Pythona i pandas,</li>
+    <li>tworzenie wykresów i analiz trendów.</li>
+</ul>
+
+<p>
+Ten projekt przypomina, że analiza danych zaczyna się nie od wykresów,
+ale od przygotowania odpowiedniego materiału źródłowego.
+</p>
+
+<h2>3. Home IT Infrastructure — własne środowisko techniczne</h2>
+
+<p>
+Home IT Infrastructure to długoterminowy projekt związany z budową
+własnej infrastruktury IT. Podstawą jest Linux Mint, zdalny dostęp,
+SSH, Tailscale i stopniowa rozbudowa domowego środowiska.
+</p>
+
+<p>
+Jednym z działających elementów jest monitoring oparty na ESP32-CAM.
+Docelowo projekt ma obejmować własny serwer, zdalną administrację,
+kopie zapasowe, usługi sieciowe i monitoring.
+</p>
+
+<p>
+To przedsięwzięcie rozłożone na lata. Nie wymaga zakupu całego sprzętu
+od razu. Najważniejsze jest poznawanie kolejnych elementów i stopniowe
+łączenie ich w działający system.
+</p>
+
+<h2>4. Linux Mint i zdalna administracja</h2>
+
+<p>
+Linux Mint stał się podstawowym środowiskiem nauki i rozwoju projektów.
+Python, terminal, analiza danych i administracja systemem są realizowane
+przede wszystkim w tym środowisku.
+</p>
+
+<p>
+Ostatnio przetestowałem zdalny dostęp do Linux Mint z telefonu przez
+Termux i SSH. Udało się przejść do katalogu projektu Daily Data Analyzer
+i uruchomić program zdalnie.
+</p>
+
+<p>
+To kolejny krok w kierunku środowiska, którym można zarządzać niezależnie
+od miejsca pobytu.
+</p>
+
+<h2>5. Wnioski z dotychczasowej pracy</h2>
+
+<h3>Małe kroki są skuteczniejsze niż duże skoki</h3>
+
+<p>
+Każda sesja nauki powinna mieć konkretny, niewielki cel. Nie trzeba
+codziennie tworzyć dużej funkcjonalności. Czasami wystarczy poprawić
+fragment kodu, zrozumieć wyjątek albo przetestować jeden warunek.
+</p>
+
+<h3>Błędy są częścią procesu</h3>
+
+<p>
+Błąd w Pythonie, niewłaściwa ścieżka katalogu czy problem z zapisem
+pliku nie oznaczają, że projekt jest nieudany. Ważne jest ustalenie
+przyczyny i zrozumienie, dlaczego problem wystąpił.
+</p>
+
+<h3>AI powinno wspierać naukę, a nie zastępować myślenie</h3>
+
+<p>
+Największą wartość daje sytuacja, w której najpierw próbuję samodzielnie
+zrozumieć problem i zaprojektować rozwiązanie, a dopiero później korzystam
+z pomocy przy analizie błędów lub poprawie kodu.
+</p>
+
+<p>
+Gotowy kod nie zawsze jest najlepszym rozwiązaniem edukacyjnym.
+Czasami ważniejsze jest samodzielne napisanie kilku linijek i sprawdzenie,
+jak zachowuje się program.
+</p>
+
+<h3>Nie każdy projekt musi być rozwijany jednocześnie</h3>
+
+<p>
+Daily Data Analyzer jest głównym projektem do nauki Pythona.
+Samsung Health Analytics pozostaje w fazie gromadzenia danych.
+Home IT Infrastructure rozwija się długoterminowo.
+</p>
+
+<p>
+Takie rozdzielenie pozwala uniknąć rozpoczynania zbyt wielu rzeczy
+jednocześnie i zachować kontrolę nad postępami.
+</p>
+
+<h2>Podsumowanie</h2>
+
+<p>
+Najważniejszym osiągnięciem nie jest obecnie liczba napisanych programów
+ani poznanych technologii. Jest nim stworzenie własnego środowiska pracy,
+rozpoczęcie budowania działających narzędzi oraz zdobywanie doświadczenia
+w rozwiązywaniu rzeczywistych problemów technicznych.
+</p>
+
+<p>
+Daily Data Analyzer pokazuje, jak Python może stać się praktycznym
+narzędziem. Samsung Health Analytics uczy pracy z danymi.
+Home IT Infrastructure pokazuje, że systemy można budować stopniowo.
+</p>
+
+<p>
+To nie jest sprint. To długoterminowy proces budowania kompetencji —
+linijka kodu, jeden problem i jeden projekt na raz.
+</p>
+
+<p>
+<strong>Linuksowo to i owo</strong> pozostaje miejscem dokumentowania
+tej drogi, dzielenia się doświadczeniami i publikowania praktycznych
+materiałów związanych z Linuxem, Pythonem, infrastrukturą IT
+i technologią.
+</p>
+
+</body>
+</html>
