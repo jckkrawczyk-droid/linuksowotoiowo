@@ -1,24 +1,28 @@
-
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SSH w Linux Mint — zdalne zarządzanie systemem | Linuksowo to i owo</title>
+    <meta name="description" content="Praktyczny poradnik SSH w Linux Mint. Instalacja OpenSSH, konfiguracja serwera, zdalne połączenia, klucze SSH i podstawowe zabezpieczenia.">
 
-    <meta name="description"
-          content="Praktyczny poradnik SSH w Linux Mint. Instalacja serwera OpenSSH, konfiguracja, połączenie zdalne i podstawowe polecenia.">
+    <title>SSH w Linux Mint – zdalne zarządzanie systemem | Linuksowo to i owo</title>
 
     <style>
         :root {
             --bg: #050816;
+            --nav: #070f1f;
             --panel: #0b1220;
+            --panel-soft: #101a2b;
             --border: #1e293b;
             --text: #e5e7eb;
+            --text-soft: #cbd5e1;
             --muted: #94a3b8;
             --green: #7cff8f;
+            --green-soft: #163322;
+            --blue: #60a5fa;
+            --orange: #fbbf24;
+            --red: #f87171;
         }
 
         * {
@@ -29,135 +33,219 @@
             margin: 0;
             background: var(--bg);
             color: var(--text);
-            font-family: Arial, sans-serif;
-            line-height: 1.7;
-        }
-
-        header {
-            background: #070f1f;
-            border-bottom: 1px solid var(--border);
-            padding: 35px 20px;
-            text-align: center;
-        }
-
-        header a {
-            color: var(--green);
-            text-decoration: none;
-        }
-
-        header h1 {
-            color: var(--green);
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: var(--muted);
-        }
-
-        main {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        article {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 30px;
-        }
-
-        h2 {
-            color: var(--green);
-            margin-top: 40px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-        }
-
-        h3 {
-            color: #cbd5e1;
-            margin-top: 25px;
-        }
-
-        p {
-            color: #cbd5e1;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.75;
         }
 
         a {
             color: var(--green);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: var(--nav);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 5%;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            color: var(--green);
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-soft);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 22px;
+        }
+
+        .article-label {
+            display: inline-block;
+            background: var(--green-soft);
+            color: var(--green);
+            border: 1px solid #28543a;
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 5vw, 46px);
+            line-height: 1.2;
+            color: var(--green);
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 27px;
+            margin-top: 55px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            color: var(--green);
+            margin-top: 30px;
+        }
+
+        .intro {
+            font-size: 19px;
+            color: var(--text-soft);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 20px 0 35px;
+        }
+
+        .toc,
+        .info,
+        .warning,
+        .success {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            margin: 25px 0;
+        }
+
+        .toc h2 {
+            font-size: 21px;
+            margin-top: 0;
+            border: none;
+        }
+
+        .toc ol {
+            margin-bottom: 0;
+        }
+
+        .info {
+            border-left: 4px solid var(--blue);
+        }
+
+        .warning {
+            border-left: 4px solid var(--orange);
+        }
+
+        .success {
+            border-left: 4px solid var(--green);
         }
 
         pre {
             background: #020617;
+            color: #d1fae5;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 18px;
             overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         code {
+            font-family: "Fira Code", "Consolas", monospace;
+        }
+
+        p code,
+        li code {
+            background: var(--panel-soft);
             color: var(--green);
-            font-family: Consolas, monospace;
-        }
-
-        pre code {
-            color: #d1fae5;
-        }
-
-        .info {
-            background: #0f1b2d;
-            border-left: 4px solid var(--green);
-            padding: 15px 20px;
-            margin: 25px 0;
+            padding: 3px 6px;
             border-radius: 5px;
         }
 
-        .warning {
-            background: #211a0b;
-            border-left: 4px solid #f59e0b;
-            padding: 15px 20px;
-            margin: 25px 0;
-            border-radius: 5px;
-        }
-
-        .terminal-image {
-            width: 100%;
-            border-radius: 10px;
+        .step {
+            background: var(--panel);
             border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
             margin: 20px 0;
         }
 
-        .caption {
-            color: var(--muted);
-            font-size: 14px;
-            text-align: center;
+        .step-number {
+            color: var(--green);
+            font-weight: bold;
         }
 
-        .tag {
-            display: inline-block;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 15px;
+        }
+
+        th,
+        td {
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 4px 12px;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--panel-soft);
             color: var(--green);
+        }
+
+        tr:nth-child(even) {
+            background: var(--panel);
+        }
+
+        .terminal-caption {
+            color: var(--muted);
             font-size: 13px;
-            margin-right: 5px;
+            margin-bottom: -12px;
         }
 
         footer {
-            text-align: center;
-            color: var(--muted);
-            padding: 30px 20px;
             border-top: 1px solid var(--border);
+            padding: 30px 5%;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 70px;
         }
 
         @media (max-width: 600px) {
-            article {
-                padding: 20px;
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-            header h1 {
-                font-size: 28px;
+            nav {
+                gap: 12px;
+            }
+
+            main {
+                margin-top: 30px;
+            }
+
+            pre {
+                font-size: 12px;
             }
         }
     </style>
@@ -166,99 +254,183 @@
 <body>
 
 <header>
-    <a href="../index.html">← Linuksowo to i owo</a>
+    <div class="header-inner">
+        <a class="logo" href="../index.html">Linuksowo to i owo</a>
 
-    <h1>SSH w Linux Mint</h1>
-
-    <p>Zdalne zarządzanie systemem z terminala</p>
-
-    <span class="tag">Linux</span>
-    <span class="tag">SSH</span>
-    <span class="tag">Terminal</span>
-    <span class="tag">Homelab</span>
+        <nav>
+            <a href="../index.html">Start</a>
+            <a href="index.html">Artykuły</a>
+            <a href="../index.html">Laboratorium</a>
+            <a href="https://github.com/jckkrawczyk-droid/linuksowotoiowo"
+               target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+    </div>
 </header>
 
 <main>
-    <article>
+
+    <span class="article-label">Linux • SSH • Homelab</span>
+
+    <h1>SSH w Linux Mint – zdalne zarządzanie systemem</h1>
+
+    <p class="intro">
+        Jak skonfigurować SSH w Linux Mint, połączyć się z komputerem
+        przez terminal i rozpocząć zdalne zarządzanie własnym systemem.
+    </p>
+
+    <div class="meta">
+        Linuksowo to i owo • Linux Mint • Administracja systemem
+    </div>
+
+    <div class="info">
+        <strong>Cel poradnika:</strong>
+        skonfigurowanie połączenia SSH pomiędzy dwoma komputerami
+        w sieci lokalnej. Na końcu skonfigurujemy również logowanie
+        za pomocą klucza SSH.
+    </div>
+
+    <div class="toc">
+        <h2>Spis treści</h2>
+
+        <ol>
+            <li><a href="#ssh">Czym jest SSH?</a></li>
+            <li><a href="#architektura">Jak działa połączenie?</a></li>
+            <li><a href="#instalacja">Instalacja OpenSSH Server</a></li>
+            <li><a href="#ip">Sprawdzenie adresu IP</a></li>
+            <li><a href="#polaczenie">Pierwsze połączenie SSH</a></li>
+            <li><a href="#polecenia">Przydatne polecenia</a></li>
+            <li><a href="#klucze">Logowanie za pomocą klucza SSH</a></li>
+            <li><a href="#konfiguracja">Konfiguracja SSH</a></li>
+            <li><a href="#bezpieczenstwo">Podstawowe bezpieczeństwo</a></li>
+            <li><a href="#problemy">Rozwiązywanie problemów</a></li>
+            <li><a href="#podsumowanie">Podsumowanie</a></li>
+        </ol>
+    </div>
+
+    <section id="ssh">
+        <h2>1. Czym jest SSH?</h2>
 
         <p>
-            <strong>SSH (Secure Shell)</strong> to jeden z podstawowych
-            protokołów wykorzystywanych przez administratorów systemów Linux.
-            Pozwala na bezpieczne zarządzanie komputerem zdalnym,
-            wykonywanie poleceń oraz przesyłanie plików.
+            SSH, czyli <strong>Secure Shell</strong>, to protokół
+            umożliwiający bezpieczne zarządzanie zdalnym komputerem
+            za pomocą połączenia sieciowego.
         </p>
 
-        <div class="info">
-            SSH umożliwia pracę na komputerze bez konieczności fizycznego
-            dostępu do jego klawiatury, myszy czy monitora.
+        <p>
+            Administrator może wykonywać polecenia, zarządzać plikami,
+            instalować oprogramowanie i kontrolować system bez
+            fizycznego dostępu do urządzenia.
+        </p>
+
+        <p>SSH jest szczególnie przydatne w:</p>
+
+        <ul>
+            <li>administracji serwerami Linux,</li>
+            <li>budowie homelabów,</li>
+            <li>zarządzaniu komputerami bez monitora,</li>
+            <li>automatyzacji zadań,</li>
+            <li>zdalnej administracji przez VPN.</li>
+        </ul>
+
+        <div class="success">
+            SSH szyfruje komunikację pomiędzy klientem i serwerem.
+            Dzięki temu dane przesyłane przez połączenie nie są
+            wysyłane w postaci zwykłego tekstu.
+        </div>
+    </section>
+
+    <section id="architektura">
+        <h2>2. Jak działa połączenie SSH?</h2>
+
+        <p>
+            SSH wykorzystuje model klient–serwer.
+            Jeden komputer inicjuje połączenie, a drugi je obsługuje.
+        </p>
+
+        <div class="step">
+            <h3>Klient SSH</h3>
+            <p>
+                Komputer, z którego wykonujemy połączenie.
+                W Linux Mint klient SSH jest zwykle dostępny
+                od razu po instalacji systemu.
+            </p>
         </div>
 
-        <h2>1. Jak działa SSH?</h2>
+        <div class="step">
+            <h3>Serwer SSH</h3>
+            <p>
+                Komputer, na którym działa usługa OpenSSH Server
+                i który przyjmuje połączenia.
+            </p>
+        </div>
+
+        <p class="terminal-caption">Schemat połączenia:</p>
+
+        <pre><code>┌──────────────────────┐
+│   Klient SSH         │
+│   Linux / Terminal   │
+└──────────┬───────────┘
+           │
+           │ SSH
+           │ TCP port 22
+           ▼
+┌──────────────────────┐
+│   Serwer SSH         │
+│   Linux Mint         │
+│   OpenSSH Server     │
+└──────────────────────┘</code></pre>
+    </section>
+
+    <section id="instalacja">
+        <h2>3. Instalacja OpenSSH Server</h2>
 
         <p>
-            Połączenie SSH odbywa się pomiędzy komputerem klienckim
-            a komputerem, na którym działa serwer SSH.
-            Komunikacja jest szyfrowana.
+            Na komputerze, którym chcemy zarządzać zdalnie,
+            otwieramy terminal.
         </p>
 
-        <p>Przykładowa architektura połączenia:</p>
+        <div class="step">
+            <span class="step-number">Krok 1</span>
 
-        <pre><code>
-┌────────────────────┐
-│  Komputer klienta │
-│  Linux / Windows  │
-└─────────┬──────────┘
-          │
-          │ SSH — port 22
-          │
-┌─────────▼──────────┐
-│  Komputer zdalny  │
-│  Linux Mint       │
-│  OpenSSH Server   │
-└───────────────────┘
-        </code></pre>
+            <p>Aktualizacja listy pakietów:</p>
 
-        <h2>2. Instalacja serwera SSH w Linux Mint</h2>
+            <pre><code>sudo apt update</code></pre>
+        </div>
+
+        <div class="step">
+            <span class="step-number">Krok 2</span>
+
+            <p>Instalacja serwera SSH:</p>
+
+            <pre><code>sudo apt install openssh-server</code></pre>
+        </div>
+
+        <div class="step">
+            <span class="step-number">Krok 3</span>
+
+            <p>Sprawdzenie statusu usługi:</p>
+
+            <pre><code>sudo systemctl status ssh</code></pre>
+        </div>
 
         <p>
-            Linux Mint może korzystać z serwera OpenSSH.
-            Aby go zainstalować, otwórz terminal i wykonaj:
+            Jeżeli usługa nie jest uruchomiona, można ją włączyć:
         </p>
 
-        <pre><code>sudo apt update</code></pre>
-
-        <pre><code>sudo apt install openssh-server</code></pre>
+        <pre><code>sudo systemctl enable --now ssh</code></pre>
 
         <p>
-            Podczas instalacji system może poprosić o hasło użytkownika
-            posiadającego uprawnienia administracyjne.
+            Polecenie uruchamia SSH od razu i ustawia automatyczne
+            uruchamianie usługi podczas startu systemu.
         </p>
+    </section>
 
-        <h2>3. Sprawdzenie działania usługi</h2>
-
-        <p>Po instalacji sprawdź status serwera SSH:</p>
-
-        <pre><code>sudo systemctl status ssh</code></pre>
-
-        <p>
-            Jeśli usługa jest aktywna, w wyniku powinien pojawić się status:
-        </p>
-
-        <pre><code>Active: active (running)</code></pre>
-
-        <p>Jeżeli usługa nie działa, możesz ją uruchomić:</p>
-
-        <pre><code>sudo systemctl start ssh</code></pre>
-
-        <p>Aby uruchamiała się automatycznie po starcie systemu:</p>
-
-        <pre><code>sudo systemctl enable ssh</code></pre>
-
-        <h2>4. Sprawdzenie adresu IP komputera</h2>
+    <section id="ip">
+        <h2>4. Sprawdzenie adresu IP serwera</h2>
 
         <p>
             Aby połączyć się z komputerem w sieci lokalnej,
-            potrzebujesz jego adresu IP.
+            potrzebujemy jego adresu IP.
         </p>
 
         <pre><code>hostname -I</code></pre>
@@ -267,129 +439,311 @@
             Przykładowy wynik:
         </p>
 
-        <pre><code>192.000.0.000</code></pre>
+        <pre><code>192.168.1.100</code></pre>
 
-        <div class="info">
-            Powyższy adres jest przykładowy. W Twojej sieci komputer
-            może mieć inny adres IP.
+        <div class="warning">
+            <strong>Uwaga:</strong>
+            adres <code>192.168.1.100</code> jest przykładowy.
+            W rzeczywistości należy użyć adresu IP swojego serwera.
+            Adres może się zmieniać w zależności od konfiguracji sieci.
         </div>
+    </section>
 
-        <h2>5. Połączenie z komputerem zdalnym</h2>
+    <section id="polaczenie">
+        <h2>5. Pierwsze połączenie SSH</h2>
 
         <p>
-            Na drugim komputerze otwórz terminal i wpisz:
+            Na drugim komputerze otwieramy terminal.
+            Następnie wpisujemy:
         </p>
 
-        <pre><code>ssh nazwa_uzytkownika@192.000.0.000</code></pre>
+        <pre><code>ssh nazwa_uzytkownika@192.168.1.100</code></pre>
 
         <p>
-            Zastąp nazwę użytkownika oraz adres IP właściwymi
-            danymi komputera docelowego.
+            Przykład: jeśli użytkownik na serwerze nazywa się
+            <code>admin</code>, polecenie będzie wyglądało tak:
         </p>
 
+        <pre><code>ssh admin@192.168.1.100</code></pre>
+
         <p>
-            Przy pierwszym połączeniu SSH może poprosić o potwierdzenie
-            autentyczności hosta. Po sprawdzeniu informacji wpisz:
+            Przy pierwszym połączeniu SSH może zapytać,
+            czy zaufać kluczowi hosta.
+        </p>
+
+        <pre><code>Are you sure you want to continue connecting?</code></pre>
+
+        <p>
+            Po zweryfikowaniu tożsamości serwera można zaakceptować
+            klucz, wpisując:
         </p>
 
         <pre><code>yes</code></pre>
 
         <p>
-            Następnie podaj hasło użytkownika komputera zdalnego.
-            Podczas wpisywania hasła terminal nie wyświetla znaków.
+            Następnie system poprosi o hasło użytkownika
+            na komputerze zdalnym.
         </p>
 
-        <h2>6. Podstawowe polecenia SSH</h2>
+        <div class="success">
+            Po poprawnym uwierzytelnieniu uzyskujemy dostęp
+            do terminala zdalnego komputera.
+        </div>
+    </section>
 
-        <h3>Połączenie z serwerem</h3>
+    <section id="polecenia">
+        <h2>6. Przydatne polecenia SSH</h2>
 
-        <pre><code>ssh user@192.000.0.000</code></pre>
+        <table>
+            <thead>
+                <tr>
+                    <th>Polecenie</th>
+                    <th>Zastosowanie</th>
+                </tr>
+            </thead>
 
-        <h3>Połączenie z niestandardowym portem</h3>
+            <tbody>
+                <tr>
+                    <td><code>ssh user@host</code></td>
+                    <td>Połączenie z serwerem</td>
+                </tr>
 
-        <pre><code>ssh -p 2222 user@192.000.0.000</code></pre>
+                <tr>
+                    <td><code>exit</code></td>
+                    <td>Zakończenie sesji</td>
+                </tr>
 
-        <h3>Zakończenie sesji</h3>
+                <tr>
+                    <td><code>whoami</code></td>
+                    <td>Sprawdzenie użytkownika</td>
+                </tr>
 
-        <pre><code>exit</code></pre>
+                <tr>
+                    <td><code>hostname</code></td>
+                    <td>Wyświetlenie nazwy komputera</td>
+                </tr>
 
-        <h2>7. Przesyłanie plików przez SCP</h2>
+                <tr>
+                    <td><code>uptime</code></td>
+                    <td>Informacja o czasie pracy systemu</td>
+                </tr>
+
+                <tr>
+                    <td><code>ip addr</code></td>
+                    <td>Informacje o interfejsach sieciowych</td>
+                </tr>
+
+                <tr>
+                    <td><code>sudo systemctl status ssh</code></td>
+                    <td>Status usługi SSH</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="klucze">
+        <h2>7. Logowanie za pomocą klucza SSH</h2>
 
         <p>
-            SSH umożliwia również przesyłanie plików.
-            Do tego celu można wykorzystać narzędzie SCP.
+            Klucze SSH umożliwiają uwierzytelnianie bez wpisywania
+            hasła użytkownika przy każdym połączeniu.
+            Jest to wygodne rozwiązanie dla administratorów.
         </p>
 
-        <p>Przykład przesłania pliku na komputer zdalny:</p>
+        <h3>Krok 1. Generowanie klucza</h3>
 
-        <pre><code>scp dokument.txt user@192.000.0.000:~/</code></pre>
+        <p>Na komputerze-kliencie wykonujemy:</p>
 
-        <p>
-            Przykład pobrania pliku z komputera zdalnego:
-        </p>
-
-        <pre><code>scp user@192.000.0.000:~/dokument.txt .</code></pre>
-
-        <h2>8. SSH w środowisku Homelab</h2>
+        <pre><code>ssh-keygen -t ed25519</code></pre>
 
         <p>
-            SSH jest szczególnie przydatne podczas budowy własnego
-            środowiska Homelab.
+            Program utworzy parę kluczy:
         </p>
 
         <ul>
-            <li>Administracja serwerami bez monitora.</li>
-            <li>Zdalne zarządzanie Linux Mint.</li>
-            <li>Obsługa Raspberry Pi i mini-PC.</li>
-            <li>Automatyzacja zadań administracyjnych.</li>
-            <li>Przesyłanie plików pomiędzy urządzeniami.</li>
-            <li>Praca z serwerami znajdującymi się w innym miejscu.</li>
+            <li><code>id_ed25519</code> – klucz prywatny,</li>
+            <li><code>id_ed25519.pub</code> – klucz publiczny.</li>
         </ul>
 
-        <h2>9. Bezpieczeństwo</h2>
-
         <div class="warning">
-            Nie udostępniaj serwera SSH bezpośrednio do Internetu
-            bez odpowiedniej konfiguracji zabezpieczeń.
+            Klucz prywatny należy chronić.
+            Nie wysyłamy go innym osobom i nie publikujemy w Internecie.
         </div>
 
-        <p>Warto pamiętać o kilku zasadach:</p>
+        <h3>Krok 2. Kopiowanie klucza na serwer</h3>
+
+        <pre><code>ssh-copy-id user@192.168.1.100</code></pre>
+
+        <p>
+            Polecenie kopiuje klucz publiczny do konfiguracji
+            użytkownika na serwerze.
+        </p>
+
+        <h3>Krok 3. Połączenie</h3>
+
+        <pre><code>ssh user@192.168.1.100</code></pre>
+
+        <p>
+            Jeżeli konfiguracja jest poprawna, uwierzytelnianie
+            powinno odbywać się przy użyciu klucza.
+        </p>
+    </section>
+
+    <section id="konfiguracja">
+        <h2>8. Konfiguracja SSH</h2>
+
+        <p>
+            Główny plik konfiguracyjny serwera SSH znajduje się
+            w lokalizacji:
+        </p>
+
+        <pre><code>/etc/ssh/sshd_config</code></pre>
+
+        <p>Otwieramy go za pomocą edytora Nano:</p>
+
+        <pre><code>sudo nano /etc/ssh/sshd_config</code></pre>
+
+        <p>
+            Po wprowadzeniu zmian należy sprawdzić konfigurację:
+        </p>
+
+        <pre><code>sudo sshd -t</code></pre>
+
+        <p>
+            Jeżeli nie pojawią się błędy, można przeładować usługę:
+        </p>
+
+        <pre><code>sudo systemctl reload ssh</code></pre>
+
+        <div class="warning">
+            Nie zmieniaj ustawień uwierzytelniania bez wcześniejszego
+            sprawdzenia, czy masz działające połączenie alternatywne.
+            Błędna konfiguracja może odciąć dostęp do serwera.
+        </div>
+    </section>
+
+    <section id="bezpieczenstwo">
+        <h2>9. Podstawowe bezpieczeństwo</h2>
 
         <ul>
             <li>Używaj silnych haseł.</li>
-            <li>Aktualizuj system i pakiety.</li>
-            <li>Rozważ uwierzytelnianie kluczami SSH.</li>
-            <li>Ogranicz dostęp do serwera do zaufanych urządzeń.</li>
-            <li>Nie udostępniaj prywatnych kluczy SSH.</li>
+            <li>Preferuj klucze SSH z odpowiednio chronionym kluczem prywatnym.</li>
+            <li>Regularnie aktualizuj system.</li>
+            <li>Nie udostępniaj klucza prywatnego.</li>
+            <li>Nie wystawiaj SSH bezpośrednio do Internetu bez przemyślanej konfiguracji.</li>
+            <li>Ogranicz dostęp do serwera do zaufanych urządzeń i sieci.</li>
         </ul>
 
-        <h2>Podsumowanie</h2>
+        <h3>Aktualizacja systemu</h3>
+
+        <pre><code>sudo apt update
+sudo apt upgrade</code></pre>
+
+        <h3>Firewall UFW</h3>
 
         <p>
-            SSH jest podstawowym narzędziem w pracy z systemami Linux.
-            Pozwala na zdalne wykonywanie poleceń, zarządzanie serwerami
-            oraz przesyłanie plików.
+            Jeżeli korzystasz z UFW, możesz sprawdzić jego status:
+        </p>
+
+        <pre><code>sudo ufw status</code></pre>
+
+        <p>
+            Włączenie firewalla wymaga ostrożności.
+            Przed aktywacją upewnij się, że reguły pozwalają
+            na połączenia SSH.
+        </p>
+
+        <pre><code>sudo ufw allow OpenSSH</code></pre>
+
+        <p>
+            Dopiero po sprawdzeniu reguł można rozważyć aktywację:
+        </p>
+
+        <pre><code>sudo ufw enable</code></pre>
+    </section>
+
+    <section id="problemy">
+        <h2>10. Rozwiązywanie problemów</h2>
+
+        <h3>Connection refused</h3>
+
+        <p>
+            Serwer odrzuca połączenie. Sprawdź, czy SSH działa:
+        </p>
+
+        <pre><code>sudo systemctl status ssh</code></pre>
+
+        <h3>Connection timed out</h3>
+
+        <p>
+            Możliwe przyczyny:
+        </p>
+
+        <ul>
+            <li>nieprawidłowy adres IP,</li>
+            <li>brak połączenia sieciowego,</li>
+            <li>blokada przez firewall,</li>
+            <li>serwer jest wyłączony.</li>
+        </ul>
+
+        <h3>Permission denied</h3>
+
+        <p>
+            Sprawdź nazwę użytkownika, hasło oraz konfigurację
+            kluczy SSH.
+        </p>
+
+        <h3>Sprawdzenie portu</h3>
+
+        <pre><code>sudo ss -tlnp | grep ssh</code></pre>
+
+        <p>
+            Domyślny port SSH to TCP 22.
+        </p>
+    </section>
+
+    <section id="podsumowanie">
+        <h2>11. Podsumowanie</h2>
+
+        <p>
+            SSH jest jednym z podstawowych narzędzi administracji
+            systemami Linux. Pozwala zarządzać komputerem zdalnie,
+            bez potrzeby korzystania z lokalnego monitora i klawiatury.
         </p>
 
         <p>
-            Opanowanie SSH to jeden z pierwszych kroków w kierunku
-            administracji systemami Linux, budowy Homelab
-            i zarządzania własną infrastrukturą IT.
+            Opanowanie SSH stanowi fundament dalszej pracy z serwerami,
+            homelabem, automatyzacją oraz administracją infrastruktury IT.
         </p>
 
-        <div class="info">
-            <strong>Praktyka:</strong> Najlepszym sposobem nauki SSH
-            jest skonfigurowanie połączenia pomiędzy dwoma własnymi
-            komputerami lub urządzeniami w sieci.
+        <div class="success">
+            <strong>Najważniejsze:</strong>
+            instalacja OpenSSH Server, sprawdzenie adresu IP,
+            pierwsze połączenie, klucze SSH i bezpieczna konfiguracja.
         </div>
 
-    </article>
+        <p>
+            Kolejnym krokiem może być wykorzystanie SSH do zarządzania
+            serwerem Linux Mint przez Tailscale, bez wystawiania
+            portu SSH bezpośrednio do Internetu.
+        </p>
+    </section>
+
+    <div class="info">
+        <strong>Linuksowo to i owo</strong><br>
+        Projekt spokojnej nauki technologii, Linuxa,
+        infrastruktury i praktycznej administracji IT.
+    </div>
+
+    <p>
+        <a href="index.html">← Powrót do artykułów</a>
+    </p>
+
 </main>
 
 <footer>
-    Linuksowo to i owo • 2026
-    <br>
-    Linux • AI • infrastruktura • homelab
+    <p>Linuksowo to i owo • 2026</p>
+    <p>Linux • AI • infrastruktura • homelab</p>
 </footer>
 
 </body>
